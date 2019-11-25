@@ -1,4 +1,13 @@
 var midiFile = {};
+var midiArray = [];
+
+// var sampler = new Tone.Sampler({
+// 	"D3" : "Samples/Church Steinway2 F D1.wav"
+// }, function(){
+// 	//sampler will repitch the closest sample
+// 	sampler.triggerAttack("D3")
+// })
+
 
 function error(str) {
 	alert("Error: " + str);
@@ -10,6 +19,7 @@ function appendText( e, text ) {
 
 function dumpFileInfo( e ) {	// Performs a simple dump of the MIDI file
 	var i, j;
+	var midiMiniArray = [];
 
 	if (!e)
 		return;
@@ -30,26 +40,88 @@ function dumpFileInfo( e ) {	// Performs a simple dump of the MIDI file
 		
 		for (j=0;j<track.events.length;j++) {
 			var ev = track.events[j];
+			midiMiniArray = [];
+			console.log(ev)
 
+			if ((ev.metaType == 81) && (!hex2Hex > 0)){  //we want to take the first tempo value
+				var hex2Hex = ev.metaData[0].toString(16);
+				hex2Hex = hex2Hex + ev.metaData[1].toString(16);
+				hex2Hex = hex2Hex + ev.metaData[2].toString(16);
+				hex2Hex = parseInt(hex2Hex, 16)
+				console.log(hex2Hex)   // to get back the tempo we convert 3 numbers to hex, combine the hex, and convert hex back to number :(
+				var pullMyHairOutTempoScale = (hex2Hex * 0.000001 / midiFile.ticksPerBeat)
+			}
 			str += "(" + ev.delta + ")";
 			
 			if (ev.type == "MIDI") {
 				var n = (ev.midiEventType << 4) + ev.midiChannel;
-				str += "[" + n.toString(16) + " " + ev.parameter1.toString(16);
+				str += "[" + n.toString() + " " + ev.parameter1.toString();
+				// midiArray[midIndex].push(n)
+				// midiArray[midIndex].push(ev.parameter1)
+				if (ev.parameter1 > 0) {
+				midiMiniArray.push(ev.delta)
+				midiMiniArray.push(n)
+				midiMiniArray.push(ev.parameter1)
 				if (ev.hasOwnProperty( "parameter2" ) )
-					str += " " + ev.parameter2.toString(16);
+				{
+					str += " " + ev.parameter2.toString();
+					midiMiniArray.push(ev.parameter2)
+				}
 				str += "] ";
+				midiArray.push(midiMiniArray)	
+			}			
 			} else if (ev.type == "meta") {
-				str += "[meta " + ev.metaType.toString(16) + " " + ev.metaData.length + "bytes]";
+				str += "[meta " + ev.metaType.toString() + " " + ev.metaData.length + "bytes]";
 			} else {	// must be sysex
 				str += "[sysex: " + ev.metaData.length + "bytes]";
 			}
-			
 		}
 		appendText(e, str);
 		e.appendChild( document.createElement( "br" ) );
 		e.appendChild( document.createElement( "br" ) );
 	}
+
+	//a polysynth composed of 8 Voices of Synth
+	var synth = new Tone.PolySynth(8, Tone.Synth, {
+		"oscillator" : {
+			"partials" : [0, 2, 3, 4],
+			type : "triangle"
+		}
+	}).toMaster();
+	
+	// convertedNote = (Math.pow(2,((69-69)/12))) * 440 // converts MIDI to HZ frequency. Hell yeah, science!
+	// setTimeout(() => synth.triggerAttack(440.0, undefined, (1)), (1000));
+	  //set the attributes using the set interface
+	//   synth.set("detune", -1200);
+	  //play a chord
+	//   setTimeout(() => synth.triggerAttack(440, undefined, (1)), (1000));
+	//   setTimeout(() => synth.triggerAttack(523, undefined, (1)), (2000));
+	//   setTimeout(() => synth.triggerAttack(587, undefined, (1)), (3000));
+	//   setTimeout(() => synth.triggerAttack(659, undefined, (1)), (4000));
+	//   synth.triggerAttack(["Ab3", "C4", "F5"], undefined, 0.2);
+	//   synth.triggerRelease(["Ab3", "C4", "F5"], "+2n");
+	var convertedNote = "";
+	var midiDelta = 0;
+	  midiArray.forEach( (midiRow, i) => {
+
+		convertedNote = ((Math.pow(2,(((midiRow[2])-69)/12))) * 440) // converts MIDI to HZ frequency. Hell yeah, science!
+		convertedNote = Math.round(convertedNote * 100) / 100
+		if (midiRow[1] == 144) {
+			if (midiDelta == 0) midiDelta += 0.1 //prevents infinite sound bug
+			synth.triggerAttack(convertedNote, midiDelta, (midiRow[3] / 127))
+			// synth.triggerAttackRelease(convertedNote, midiArray[i][0] * pullMyHairOutTempoScale, midiDelta, 1)
+			//https://www.gamedev.net/forums/topic/535653-convert-midi-deltatime-to-milliseconds/
+			midiDelta += (midiArray[i+1][0] * pullMyHairOutTempoScale)
+		}
+		if (midiRow[1] == 128) {	
+			synth.triggerRelease(convertedNote, ("+" + midiDelta))
+			midiDelta += (midiArray[i+1][0] * pullMyHairOutTempoScale)
+		}
+		
+
+	  });
+	 
+
 
 }
 
@@ -77,6 +149,7 @@ function decodeMetaEvent( data, trackOffset, track, trackEvent ) {
 	trackEvent.type = "meta";
 	
 	trackEvent.metaType = data.getUint8(idx++);
+	// console.log(trackEvent.metaType)
 /*	Type	Event	Type	Event
 	0x00	 Sequence number	 
 	0x01	 Text event	 
@@ -256,6 +329,8 @@ function decodeSMF( buffer ) {
 //   unsigned short numTracks;
 	midiFile.numTracks = data.getUint16(idx);
 	idx+=2;
+
+	console.log(data)
 
 //   unsigned short ticksPerBeat;
 	midiFile.ticksPerBeat = data.getUint16(idx);
