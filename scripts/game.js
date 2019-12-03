@@ -1,3 +1,9 @@
+var keys = {};
+window.onkeyup = function(e) { keys[e.keyCode] = false; }
+window.onkeydown = function(e) { keys[e.keyCode] = true; }
+
+// setInterval(() => {console.log(keys[65])}, 1000)
+
 class Game {
     constructor() {
         this.canvas = undefined;
@@ -37,14 +43,22 @@ class Game {
                 if (this.obstacles[i].y > 800) {
                     this.obstacles.splice(i, 1);
                 }
+                // this will mute the note if the correct key isnt pushed at correct Y axis.
+                // TRIGGERING RELEASE DOESNT FUCKING WORK ON TIME IT UNTRIGGERS EVERYTHING ALWAYS:( NEED TO DO TRIGGERATTACK INSTEAD
+                if ((this.obstacles[i].y <= -47) && (keys[65])) {
+                    // synth.triggerRelease(this.obstacles[i].oNote, ("+" + 0))
+                    synth.triggerAttack(this.obstacles[i].oNote, this.obstacles[i].oDelta, this.obstacles[i].oVelocity)
+                        console.log("oNote == ", this.obstacles[i].oNote);
+                }
             }
         }, 1000 / 60);
     }
 
-    createObstacles() {
+    createObstacles(oNote, oDelta, oVelocity) {
         // if (Math.floor(Math.random() * 25) % 2 === 0) {
-            this.obstacles.push(new Obstacle(this));
-            console.log("obstacle == ", this.obstacles);
+            this.obstacles.push(new Obstacle(this, oNote, oDelta, oVelocity));
+            
+           
         // }
 
         // setTimeout(() => {

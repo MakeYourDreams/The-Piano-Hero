@@ -1,12 +1,15 @@
 class Obstacle extends Component {
-    constructor(game) {
+    constructor(game, oNote, oDelta, oVelocity) {
         super(game);
         this.game = game;
         this.x = Math.floor(Math.random() * 440 + 30);
-        this.y = 100;
+        this.y = -50;
         this.width = 100;
         this.height = 150;
         this.img = new Image();
+        this.oNote = oNote;
+        this.oDelta = oDelta;
+        this.oVelocity = oVelocity;
     }
 
     draw() {
@@ -22,7 +25,7 @@ class Obstacle extends Component {
 
     move() {
         // if (Math.floor(Math.random() * 20) % 3 === 0) {
-            this.y += 5;
+            this.y += 2;
         // }
     }
 }

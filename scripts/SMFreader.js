@@ -1,12 +1,30 @@
 var midiFile = {};
 var midiArray = [];
 
+	//a polysynth composed of 8 Voices of Synth
+	var synth = new Tone.PolySynth(8, Tone.Synth, {
+		"oscillator" : {
+			"partials" : [0, 2, 3, 4],
+			type : "triangle"
+		}
+	}).toMaster();
+
+	// synth.set({
+	// 	"filter" : {
+	// 		"type" : "notch"
+	// 	},
+	// 	// "envelope" : {
+	// 	// 	"attack" : 0.5
+	// 	// }
+	// });
+
 // var sampler = new Tone.Sampler({
 // 	"D3" : "Samples/Church Steinway2 F D1.wav"
 // }, function(){
 // 	//sampler will repitch the closest sample
 // 	sampler.triggerAttack("D3")
 // })
+
 
 
 function error(str) {
@@ -93,23 +111,6 @@ function dumpFileInfo( e ) {	// Performs a simple dump of the MIDI file
 		e.appendChild( document.createElement( "br" ) );
 		e.appendChild( document.createElement( "br" ) );
 	}
-
-	//a polysynth composed of 8 Voices of Synth
-	var synth = new Tone.PolySynth(8, Tone.Synth, {
-		"oscillator" : {
-			"partials" : [0, 2, 3, 4],
-			type : "triangle"
-		}
-	}).toMaster();
-
-	// synth.set({
-	// 	"filter" : {
-	// 		"type" : "notch"
-	// 	},
-	// 	// "envelope" : {
-	// 	// 	"attack" : 0.5
-	// 	// }
-	// });
 	
 	// convertedNote = (Math.pow(2,((69-69)/12))) * 440 // converts MIDI to HZ frequency. Hell yeah, science!
 	// setTimeout(() => synth.triggerAttack(440.0, undefined, (1)), (1000));
@@ -135,14 +136,38 @@ function dumpFileInfo( e ) {	// Performs a simple dump of the MIDI file
 		convertedNote = Math.round(convertedNote * 100) / 100
 		if (midiRow[1] == 144) {
 			if (midiDelta == 0) midiDelta += 0.1 //prevents infinite sound bug
-			synth.triggerAttack(convertedNote, midiDelta, (midiRow[3] / 127))
-			myGame.createObstacles()
+			// synth.triggerAttack(convertedNote, midiDelta, (midiRow[3] / 127))
+			
+		// Create the note at the right time. I dont know why this works for the callback function.
+			setTimeout((cN, mD, mV) => {
+				 myGame.createObstacles(cN)
+			}, (midiDelta * 1000), convertedNote, midiDelta, (midiRow[3] / 127));
+
+		// this is the same as above code			
+			// setTimeout((function (i) {
+			// 	return function(){
+			// 		myGame.createObstacles(i)
+			// 	}
+			// })(convertedNote), midiDelta * 1000);
+				
+			
+			// setTimeout(function() { console.log(convertedNote) }, midiDelta * 1000);
+
+			
+			
 			// synth.triggerAttackRelease(convertedNote, midiArray[i][0] * pullMyHairOutTempoScale, midiDelta, 1)
 			//https://www.gamedev.net/forums/topic/535653-convert-midi-deltatime-to-milliseconds/
 			midiDelta += (midiArray[i+1][0] * pullMyHairOutTempoScale)
+
+
 		}
 		if (midiRow[1] == 128) {	
-			synth.triggerRelease(convertedNote, ("+" + midiDelta))
+			// synth.triggerRelease(convertedNote, ("+" + midiDelta))
+
+			setTimeout((cN2) => {
+				synth.triggerRelease(cN2, ("+" + 0))
+		   }, (midiDelta * 1100), convertedNote);
+
 			midiDelta += (midiArray[i+1][0] * pullMyHairOutTempoScale)
 		}
 		// if (midiRow[1] == 146) {
