@@ -43,7 +43,7 @@ function dumpFileInfo( e ) {	// Performs a simple dump of the MIDI file
 			midiMiniArray = [];
 			console.log(ev)
 
-			if ((ev.metaType == 81) && (!hex2Hex > 0)){  //we want to take the first tempo value
+			if ((ev.metaType == 81) && (!hex2Hex > 0)){  //we want to take the first tempo value?
 				var hex2Hex = ev.metaData[0].toString(16);
 				hex2Hex = hex2Hex + ev.metaData[1].toString(16);
 				hex2Hex = hex2Hex + ev.metaData[2].toString(16);
@@ -71,7 +71,20 @@ function dumpFileInfo( e ) {	// Performs a simple dump of the MIDI file
 				midiArray.push(midiMiniArray)	
 			}			
 			} else if (ev.type == "meta") {
-				str += "[meta " + ev.metaType.toString() + " " + ev.metaData.length + "bytes]";
+				if (ev.metaType == 81){  //we want to take the first tempo value?
+					var hex2Hex = ev.metaData[0].toString(16);
+					hex2Hex = hex2Hex + ev.metaData[1].toString(16);
+					hex2Hex = hex2Hex + ev.metaData[2].toString(16);
+					hex2Hex = parseInt(hex2Hex, 16)
+					console.log(hex2Hex)   // to get back the tempo we convert 3 numbers to hex, combine the hex, and convert hex back to number :(
+					var pullMyHairOutTempoScaleTemp = (hex2Hex * 0.000001 / midiFile.ticksPerBeat)
+					midiMiniArray.push(ev.delta)
+					midiMiniArray.push(ev.type)
+					midiMiniArray.push(ev.metaType)
+					midiMiniArray.push(pullMyHairOutTempoScaleTemp)
+					midiArray.push(midiMiniArray)	
+				}
+				str += "[meta " + ev.metaType.toString() + " " + pullMyHairOutTempoScale + "]";
 			} else {	// must be sysex
 				str += "[sysex: " + ev.metaData.length + "bytes]";
 			}
@@ -88,6 +101,15 @@ function dumpFileInfo( e ) {	// Performs a simple dump of the MIDI file
 			type : "triangle"
 		}
 	}).toMaster();
+
+	// synth.set({
+	// 	"filter" : {
+	// 		"type" : "notch"
+	// 	},
+	// 	// "envelope" : {
+	// 	// 	"attack" : 0.5
+	// 	// }
+	// });
 	
 	// convertedNote = (Math.pow(2,((69-69)/12))) * 440 // converts MIDI to HZ frequency. Hell yeah, science!
 	// setTimeout(() => synth.triggerAttack(440.0, undefined, (1)), (1000));
@@ -104,17 +126,44 @@ function dumpFileInfo( e ) {	// Performs a simple dump of the MIDI file
 	var midiDelta = 0;
 	  midiArray.forEach( (midiRow, i) => {
 
+		if ((midiRow[1] == "meta") && (midiRow[2] == "81")){
+			pullMyHairOutTempoScale = midiRow[3]
+			// midiDelta += (midiArray[i+1][0] * pullMyHairOutTempoScale)
+		}
+
 		convertedNote = ((Math.pow(2,(((midiRow[2])-69)/12))) * 440) // converts MIDI to HZ frequency. Hell yeah, science!
 		convertedNote = Math.round(convertedNote * 100) / 100
 		if (midiRow[1] == 144) {
 			if (midiDelta == 0) midiDelta += 0.1 //prevents infinite sound bug
 			synth.triggerAttack(convertedNote, midiDelta, (midiRow[3] / 127))
+			myGame.createObstacles()
 			// synth.triggerAttackRelease(convertedNote, midiArray[i][0] * pullMyHairOutTempoScale, midiDelta, 1)
 			//https://www.gamedev.net/forums/topic/535653-convert-midi-deltatime-to-milliseconds/
 			midiDelta += (midiArray[i+1][0] * pullMyHairOutTempoScale)
 		}
 		if (midiRow[1] == 128) {	
 			synth.triggerRelease(convertedNote, ("+" + midiDelta))
+			midiDelta += (midiArray[i+1][0] * pullMyHairOutTempoScale)
+		}
+		// if (midiRow[1] == 146) {
+		// 	if (midiDelta == 0) midiDelta += 0.1 //prevents infinite sound bug
+		// 	synth.triggerAttack(convertedNote, midiDelta, (midiRow[3] / 127))
+		// 	// synth.triggerAttackRelease(convertedNote, midiArray[i][0] * pullMyHairOutTempoScale, midiDelta, 1)
+		// 	//https://www.gamedev.net/forums/topic/535653-convert-midi-deltatime-to-milliseconds/
+		// 	midiDelta += (midiArray[i+1][0] * pullMyHairOutTempoScale)
+		// }
+		// if (midiRow[1] == 130) {	
+		// 	synth.triggerRelease(convertedNote, ("+" + midiDelta))
+		// 	midiDelta += (midiArray[i+1][0] * pullMyHairOutTempoScale)
+		// }
+		if ((midiRow[1] == 176) && (midiRow[2] >= 64)) {	
+			synth.triggerRelease(convertedNote, ("+" + midiDelta))
+			midiDelta += (midiArray[i+1][0] * pullMyHairOutTempoScale)
+		}
+
+		if ((midiRow[1] == 176) && (midiRow[2] <= 63)) {	
+			if (midiDelta == 0) midiDelta += 0.1 //prevents infinite sound bug
+			// synth.triggerAttack(convertedNote, midiDelta, (midiRow[3] / 127))
 			midiDelta += (midiArray[i+1][0] * pullMyHairOutTempoScale)
 		}
 		

@@ -13,6 +13,13 @@ section, header, footer {
   display: block;
 }
 
+canvas {
+  padding: 0;
+  margin: auto;
+  display: block;
+  width: 820;
+}
+
 header,
 article > *,
 footer > * {
