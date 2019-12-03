@@ -135,13 +135,16 @@ function dumpFileInfo( e ) {	// Performs a simple dump of the MIDI file
 		convertedNote = ((Math.pow(2,(((midiRow[2])-69)/12))) * 440) // converts MIDI to HZ frequency. Hell yeah, science!
 		convertedNote = Math.round(convertedNote * 100) / 100
 		if (midiRow[1] == 144) {
+
 			if (midiDelta == 0) midiDelta += 0.1 //prevents infinite sound bug
 			// synth.triggerAttack(convertedNote, midiDelta, (midiRow[3] / 127))
 			
 		// Create the note at the right time. Delta no longer relevant for attack tone.
-			setTimeout((cN, mD, mV) => {
-				 myGame.createObstacles(cN, mD, mV)
-			}, (midiDelta * 1000), convertedNote, midiDelta, (midiRow[3] / 127));
+
+
+		setTimeout((cN, mD, mV) => {
+			myGame.createObstacles(cN, mD, mV)
+	   }, (midiDelta * 1000), convertedNote, midiDelta, (midiRow[3] / 127));
 
 		// this is the same as above code			
 			// setTimeout((function (i) {
@@ -166,7 +169,8 @@ function dumpFileInfo( e ) {	// Performs a simple dump of the MIDI file
 
 			setTimeout((cN2) => {
 				synth.triggerRelease(cN2, ("+" + 0))
-		   }, ((midiDelta * 1000) + 4965), convertedNote);
+				console.log("released" + " " + cN2 + " " + Date.now())
+		   }, ((midiDelta * 1000) + 4980), convertedNote);
 
 			midiDelta += (midiArray[i+1][0] * pullMyHairOutTempoScale)
 		}

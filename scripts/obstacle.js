@@ -43,7 +43,7 @@ class Obstacle extends Component {
         //     this.height
         // );
         this.game.ctx.beginPath();
-this.game.ctx.arc(this.x, this.y, 26, 0, 1 * Math.PI);
+this.game.ctx.arc(this.x, this.y, 26, 1 * Math.PI, 0);
 this.game.ctx.fillStyle = this.kColor;
 this.game.ctx.fill()
 this.game.ctx.lineWidth = 2;
