@@ -138,9 +138,9 @@ function dumpFileInfo( e ) {	// Performs a simple dump of the MIDI file
 			if (midiDelta == 0) midiDelta += 0.1 //prevents infinite sound bug
 			// synth.triggerAttack(convertedNote, midiDelta, (midiRow[3] / 127))
 			
-		// Create the note at the right time. I dont know why this works for the callback function.
+		// Create the note at the right time. Delta no longer relevant for attack tone.
 			setTimeout((cN, mD, mV) => {
-				 myGame.createObstacles(cN)
+				 myGame.createObstacles(cN, mD, mV)
 			}, (midiDelta * 1000), convertedNote, midiDelta, (midiRow[3] / 127));
 
 		// this is the same as above code			
@@ -166,7 +166,7 @@ function dumpFileInfo( e ) {	// Performs a simple dump of the MIDI file
 
 			setTimeout((cN2) => {
 				synth.triggerRelease(cN2, ("+" + 0))
-		   }, (midiDelta * 1000), convertedNote);
+		   }, ((midiDelta * 1000) + 4965), convertedNote);
 
 			midiDelta += (midiArray[i+1][0] * pullMyHairOutTempoScale)
 		}

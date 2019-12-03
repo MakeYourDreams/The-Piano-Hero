@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=620">
 	<title>HTML5 Demo: File API</title>
 	<link rel="stylesheet" href="main.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
 	<script src="https://unpkg.com/tone@latest/build/Tone.js"></script>
 	<script src="./scripts/component.js"></script>
 	<script src="./scripts/obstacle.js"></script>
@@ -47,6 +48,29 @@
 				<canvas id="canvas" width="820" height="570"></canvas>
 			</div>
 		</center>
+		<ul id="piano">
+				<li data-note="A" class="key">
+					<kbd>1</kbd>
+				</li>
+				<li data-note="B" class="key">
+					<kbd>2</kbd>
+				</li>
+				<li data-note="C" class="key">
+				  <kbd>3</kbd>
+				</li>
+				<li data-note="D" class="key">
+					<kbd>Space</kbd> 
+				</li>
+				<li data-note="E" class="key">
+					<kbd>←</kbd> 
+				</li>
+				<li data-note="F" class="key">
+					<kbd>↑</kbd> 
+				</li>
+				<li data-note="G" class="key">
+					<kbd>→</kbd> 
+				</li>
+			  </ul>
 			<div id="holder"></div> 
 			<p id="status">File API &amp; FileReader API not supported</p>
 			<p>Drag a MIDI file from your desktop on to the drop zone above to see the browser read the contents of the file without uploading the file to any servers.</p>

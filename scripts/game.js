@@ -1,6 +1,6 @@
 var keys = {};
 window.onkeyup = function(e) { keys[e.keyCode] = false; }
-window.onkeydown = function(e) { keys[e.keyCode] = true; }
+window.onkeydown = function(e) { keys[e.keyCode] = true; e.preventDefault(); }
 
 // setInterval(() => {console.log(keys[65])}, 1000)
 
@@ -46,9 +46,10 @@ class Game {
                 // this will mute the note if the correct key isnt pushed at correct Y axis.
                 // triggerrelease doesn't work on time with toneJS, need to use triggerattack instead.
                 // we need to only allow note to be attack played once. find exact time it takes for note to go down to y axis and add to the release timeout by this amount.
-                if ((this.obstacles[i].y <= -48) && (keys[this.obstacles[i].pKey])) {
+                if ((this.obstacles[i].y >= 560) && (this.obstacles[i].y <= 570) && (keys[this.obstacles[i].pKey])) {
+                    console.log("pushed" + Date.now())
                     // synth.triggerRelease(this.obstacles[i].oNote, ("+" + 0))
-                    synth.triggerAttack(this.obstacles[i].oNote, this.obstacles[i].oDelta, this.obstacles[i].oVelocity)
+                    synth.triggerAttack(this.obstacles[i].oNote, undefined, this.obstacles[i].oVelocity) //Delta no longer relevant for attack.
                         console.log("oNote == ", this.obstacles[i].oNote);
                 }
             }
@@ -58,7 +59,7 @@ class Game {
     createObstacles(oNote, oDelta, oVelocity) {
         // if (Math.floor(Math.random() * 25) % 2 === 0) {
             this.obstacles.push(new Obstacle(this, oNote, oDelta, oVelocity));
-            
+            console.log("created" + Date.now())
            
         // }
 
