@@ -166,7 +166,7 @@ function dumpFileInfo( e ) {	// Performs a simple dump of the MIDI file
 
 			setTimeout((cN2) => {
 				synth.triggerRelease(cN2, ("+" + 0))
-		   }, (midiDelta * 1100), convertedNote);
+		   }, (midiDelta * 1000), convertedNote);
 
 			midiDelta += (midiArray[i+1][0] * pullMyHairOutTempoScale)
 		}

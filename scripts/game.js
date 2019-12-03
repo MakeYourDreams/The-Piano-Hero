@@ -44,8 +44,9 @@ class Game {
                     this.obstacles.splice(i, 1);
                 }
                 // this will mute the note if the correct key isnt pushed at correct Y axis.
-                // TRIGGERING RELEASE DOESNT FUCKING WORK ON TIME IT UNTRIGGERS EVERYTHING ALWAYS:( NEED TO DO TRIGGERATTACK INSTEAD
-                if ((this.obstacles[i].y <= -47) && (keys[65])) {
+                // triggerrelease doesn't work on time with toneJS, need to use triggerattack instead.
+                // we need to only allow note to be attack played once. find exact time it takes for note to go down to y axis and add to the release timeout by this amount.
+                if ((this.obstacles[i].y <= -48) && (keys[this.obstacles[i].pKey])) {
                     // synth.triggerRelease(this.obstacles[i].oNote, ("+" + 0))
                     synth.triggerAttack(this.obstacles[i].oNote, this.obstacles[i].oDelta, this.obstacles[i].oVelocity)
                         console.log("oNote == ", this.obstacles[i].oNote);
