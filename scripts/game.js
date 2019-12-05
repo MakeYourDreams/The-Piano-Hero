@@ -46,7 +46,7 @@ class Game {
                 }
                 if ((keys[this.obstacles[i].pKey])) {
                     document.getElementById(this.obstacles[i].noteIndex).classList.add("active");
-                }else{
+                }else if (this.obstacles[i].noteIndex !== undefined){
                     document.getElementById(this.obstacles[i].noteIndex).classList.remove("active")
                 }
                 // triggerrelease doesn't work on time with toneJS, need to use triggerattack instead.
