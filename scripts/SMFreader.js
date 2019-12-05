@@ -90,17 +90,17 @@ function dumpFileInfo( e ) {	// Performs a simple dump of the MIDI file
 			}			
 			} else if (ev.type == "meta") {
 				if (ev.metaType == 81){  //we want to take the first tempo value?
-					var hex2Hex = ev.metaData[0].toString(16);
-					hex2Hex = hex2Hex + ev.metaData[1].toString(16);
-					hex2Hex = hex2Hex + ev.metaData[2].toString(16);
-					hex2Hex = parseInt(hex2Hex, 16)
-					console.log(hex2Hex)   // to get back the tempo we convert 3 numbers to hex, combine the hex, and convert hex back to number :(
-					var pullMyHairOutTempoScaleTemp = (hex2Hex * 0.000001 / midiFile.ticksPerBeat)
-					midiMiniArray.push(ev.delta)
-					midiMiniArray.push(ev.type)
-					midiMiniArray.push(ev.metaType)
-					midiMiniArray.push(pullMyHairOutTempoScaleTemp)
-					midiArray.push(midiMiniArray)	
+					// var hex2Hex = ev.metaData[0].toString(16);
+					// hex2Hex = hex2Hex + ev.metaData[1].toString(16);
+					// hex2Hex = hex2Hex + ev.metaData[2].toString(16);
+					// hex2Hex = parseInt(hex2Hex, 16)
+					// console.log(hex2Hex)   // to get back the tempo we convert 3 numbers to hex, combine the hex, and convert hex back to number :(
+					// var pullMyHairOutTempoScaleTemp = (hex2Hex * 0.000001 / midiFile.ticksPerBeat)
+					// midiMiniArray.push(ev.delta)
+					// midiMiniArray.push(ev.type)
+					// midiMiniArray.push(ev.metaType)
+					// midiMiniArray.push(pullMyHairOutTempoScaleTemp)
+					// midiArray.push(midiMiniArray)	
 				}
 				str += "[meta " + ev.metaType.toString() + " " + pullMyHairOutTempoScale + "]";
 			} else {	// must be sysex
@@ -127,10 +127,10 @@ function dumpFileInfo( e ) {	// Performs a simple dump of the MIDI file
 	var midiDelta = 0;
 	  midiArray.forEach( (midiRow, i) => {
 
-		if ((midiRow[1] == "meta") && (midiRow[2] == "81")){
-			pullMyHairOutTempoScale = midiRow[3]
+		// if ((midiRow[1] == "meta") && (midiRow[2] == "81")){
+		// 	pullMyHairOutTempoScale = midiRow[3]
 			// midiDelta += (midiArray[i+1][0] * pullMyHairOutTempoScale)
-		}
+		// }
 
 		convertedNote = ((Math.pow(2,(((midiRow[2])-69)/12))) * 440) // converts MIDI to HZ frequency. Hell yeah, science!
 		convertedNote = Math.round(convertedNote * 100) / 100
@@ -170,7 +170,7 @@ function dumpFileInfo( e ) {	// Performs a simple dump of the MIDI file
 			setTimeout((cN2) => {
 				synth.triggerRelease(cN2, ("+" + 0))
 				console.log("released" + " " + cN2 + " " + Date.now())
-		   }, ((midiDelta * 1000) + 4980), convertedNote);
+		   }, ((midiDelta * 1000) + 4975), convertedNote);
 
 			midiDelta += (midiArray[i+1][0] * pullMyHairOutTempoScale)
 		}

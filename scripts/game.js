@@ -1,6 +1,7 @@
+var keyPushed = true;
 var keys = {};
-window.onkeyup = function(e) { keys[e.keyCode] = false }
-window.onkeydown = function(e) { keys[e.keyCode] = true; e.preventDefault();  } //setTimeout(function() { keys[e.keyCode] = false }, 50);
+window.onkeyup = function(e) {  keys[e.keyCode] = false; }  
+window.onkeydown = function(e) { keys = {}; keys[e.keyCode] = true; e.preventDefault(); } //set keys to empty variable to only allow 1 key down event at a time
 
 // setInterval(() => {console.log(keys[65])}, 1000)
 
@@ -40,21 +41,34 @@ class Game {
                 this.obstacles[i].move();
                 this.obstacles[i].draw();
                 // this.car.crashCollision(this.obstacles[i]);
-                if (this.obstacles[i].y > 800) {
+                if (this.obstacles[i].y > 600) {
                     this.obstacles.splice(i, 1);
                 }
-                // this will mute the note if the correct key isnt pushed at correct Y axis.
+                if ((keys[this.obstacles[i].pKey])) {
+                    document.getElementById(this.obstacles[i].noteIndex).classList.add("active");
+                }else{
+                    document.getElementById(this.obstacles[i].noteIndex).classList.remove("active")
+                }
                 // triggerrelease doesn't work on time with toneJS, need to use triggerattack instead.
                 // we need to only allow note to be attack played once. find exact time it takes for note to go down to y axis and add to the release timeout by this amount.
-                if ((this.obstacles[i].y >= 560) && (this.obstacles[i].y <= 590) && (keys[this.obstacles[i].pKey])) {
-                    console.log("pushed" + Date.now())
-                    this.obstacles[i].kColor = "#FFF"; 
+                if ((this.obstacles[i].y >= 565) && (this.obstacles[i].y <= 585) && (keys[this.obstacles[i].pKey])) {
+                   
+                    if ((this.obstacles[i].oNote !== undefined) && (keyPushed == true)){
+                        document.getElementById(this.obstacles[i].noteIndex).style = "box-shadow: 10px 10px 10px rgba(58, 58, 58, 0.1), 0px 2px 10px " + this.obstacles[i].kColor + ";"
+                        setTimeout(() => { document.getElementById(this.obstacles[i].noteIndex).style = "box-shadow: ;", keyPushed = true; }, (1000 / 60) * 5); 
+                    keyPushed = false;
+                    }
+                   
+                    // console.log("pushed" + Date.now())
+                    var randWhite = Math.floor(Math.random() * 55) + 200
+                    this.obstacles[i].kColor = "rgb(" + randWhite + "," + randWhite + "," + randWhite + ")" 
                     
+                    // console.log(this.obstacles[i].noteIndex)
                     // synth.triggerRelease(this.obstacles[i].oNote, ("+" + 0))
                     synth.triggerAttack(this.obstacles[i].oNote, undefined, this.obstacles[i].oVelocity) //Delta no longer relevant for attack.
                     this.obstacles[i].oNote = undefined;
                     // synth.triggerRelease(this.obstacles[i].oNote, ("+" + this.obstacles[i].oDelta))
-                        console.log("oNote == ", this.obstacles[i].oNote);
+                        // console.log("oNote == ", this.obstacles[i].oNote);
                         // keys[this.obstacles[i].pKey] = false;
                 }
             }
@@ -62,9 +76,9 @@ class Game {
     }
 
     createObstacles(oNote, oDelta, oVelocity) {
-        // if (Math.floor(Math.random() * 25) % 2 === 0) {
+        // if (Math.floor(Math.random() * 25) % 2 === 0) { 
             this.obstacles.push(new Obstacle(this, oNote, oDelta, oVelocity));
-            console.log("created" + Date.now())
+            // console.log("created" + Date.now())
            
         // }
 
