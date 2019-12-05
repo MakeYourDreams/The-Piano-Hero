@@ -29,7 +29,7 @@ class Obstacle extends Component {
         if (oNote >= 698) this.x = 619, this.pKey = 38, this.kColor = "rgb(255, 136, 0)", this.noteIndex = "n6";    
         if (oNote >= 783.9) this.x = 729, this.pKey = 39, this.kColor = "rgb(187, 0, 244)", this.noteIndex = "n7";   
 
-        if (oNote >= 880) this.x = 729, this.pKey = 49, this.kColor = "#0F9D58", this.noteIndex = "n1"; 
+        if (oNote >= 880) this.x = 95, this.pKey = 49, this.kColor = "#0F9D58", this.noteIndex = "n1"; 
         
         // if (oNote >= 110) this.x = 95, this.pKey = 49, this.kColor = "#0F9D58", this.noteIndex = "n1";  
         // if (oNote >= 131) this.x = 202, this.pKey = 50, this.kColor = "#DB4437", this.noteIndex = "n2";  

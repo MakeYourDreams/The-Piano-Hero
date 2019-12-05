@@ -59,15 +59,16 @@ function dumpFileInfo( e ) {	// Performs a simple dump of the MIDI file
 		for (j=0;j<track.events.length;j++) {
 			var ev = track.events[j];
 			midiMiniArray = [];
-			console.log(ev)
+			// console.log(ev)
 
 			if ((ev.metaType == 81) && (!hex2Hex > 0)){  //we want to take the first tempo value?
 				var hex2Hex = ev.metaData[0].toString(16);
 				hex2Hex = hex2Hex + ev.metaData[1].toString(16);
 				hex2Hex = hex2Hex + ev.metaData[2].toString(16);
 				hex2Hex = parseInt(hex2Hex, 16)
-				console.log(hex2Hex)   // to get back the tempo we convert 3 numbers to hex, combine the hex, and convert hex back to number :(
+				// console.log(hex2Hex)   // to get back the tempo we convert 3 numbers to hex, combine the hex, and convert hex back to number :(
 				var pullMyHairOutTempoScale = (hex2Hex * 0.000001 / midiFile.ticksPerBeat)
+				console.log(pullMyHairOutTempoScale)
 			}
 			str += "(" + ev.delta + ")";
 			
@@ -169,7 +170,7 @@ function dumpFileInfo( e ) {	// Performs a simple dump of the MIDI file
 
 			setTimeout((cN2) => {
 				synth.triggerRelease(cN2, ("+" + 0))
-				console.log("released" + " " + cN2 + " " + Date.now())
+				// console.log("released" + " " + cN2 + " " + Date.now())
 		   }, ((midiDelta * 1000) + 4975), convertedNote);
 
 			midiDelta += (midiArray[i+1][0] * pullMyHairOutTempoScale)
@@ -185,16 +186,16 @@ function dumpFileInfo( e ) {	// Performs a simple dump of the MIDI file
 		// 	synth.triggerRelease(convertedNote, ("+" + midiDelta))
 		// 	midiDelta += (midiArray[i+1][0] * pullMyHairOutTempoScale)
 		// }
-		if ((midiRow[1] == 176) && (midiRow[2] >= 64)) {	
-			synth.triggerRelease(convertedNote, ("+" + midiDelta))
-			midiDelta += (midiArray[i+1][0] * pullMyHairOutTempoScale)
-		}
+		// if ((midiRow[1] == 176) && (midiRow[2] >= 64)) {	
+		// 	synth.triggerRelease(convertedNote, ("+" + midiDelta))
+		// 	midiDelta += (midiArray[i+1][0] * pullMyHairOutTempoScale)
+		// }
 
-		if ((midiRow[1] == 176) && (midiRow[2] <= 63)) {	
-			if (midiDelta == 0) midiDelta += 0.1 //prevents infinite sound bug
-			// synth.triggerAttack(convertedNote, midiDelta, (midiRow[3] / 127))
-			midiDelta += (midiArray[i+1][0] * pullMyHairOutTempoScale)
-		}
+		// if ((midiRow[1] == 176) && (midiRow[2] <= 63)) {	
+		// 	if (midiDelta == 0) midiDelta += 0.1 //prevents infinite sound bug
+		// 	// synth.triggerAttack(convertedNote, midiDelta, (midiRow[3] / 127))
+		// 	midiDelta += (midiArray[i+1][0] * pullMyHairOutTempoScale)
+		// }
 		
 
 	  });
@@ -408,7 +409,7 @@ function decodeSMF( buffer ) {
 	midiFile.numTracks = data.getUint16(idx);
 	idx+=2;
 
-	console.log(data)
+	// console.log(data)
 
 //   unsigned short ticksPerBeat;
 	midiFile.ticksPerBeat = data.getUint16(idx);
