@@ -7,6 +7,10 @@ window.onload = function() {
         var pullMyHairOutTempoScale = 0.0008928572916666667;
         var convertedNote = "";
         var midiDelta = 0;
+
+        setInterval(() => {
+            keyPushed = true;
+        }, 1000);
         
           midiArray.forEach( (midiRow, i) => {
     
