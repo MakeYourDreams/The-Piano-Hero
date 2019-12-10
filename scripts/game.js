@@ -55,9 +55,9 @@ class Game {
                    
                     if ((this.obstacles[i].oNote !== undefined) && (keyPushed == true)){
                         document.getElementById(this.obstacles[i].noteIndex).style = "box-shadow: 10px 10px 10px rgba(58, 58, 58, 0.1), 0px 2px 10px " + this.obstacles[i].kColor + ";"
-                        setTimeout(() => { document.getElementById(this.obstacles[i].noteIndex).style = "box-shadow: ;", keyPushed = true; }, (1000 / 60) * 5); 
+                        setTimeout(() => { document.getElementById(this.obstacles[i].noteIndex).style = "box-shadow: ;", keyPushed = true; }, (1000 / 60) * 3); 
                         
-                        var subNum = 1
+                        var subNum = 1 // helps prevent colors from getting stuck
                         if ((this.obstacles[i].noteIndex)[1] == 1) var subNum = -6
                         document.getElementById("n" + ((this.obstacles[i].noteIndex)[1]-subNum)).style = "box-shadow: ;"
                         
@@ -93,14 +93,18 @@ class Game {
     }
 
     drawBackground() {
-        this.backgroundImg.src = "./images/7rows.jpg";
-        this.ctx.drawImage(
-            this.backgroundImg,
-            this.x,
-            this.y,
-            this.width,
-            this.height
-        );
+        // this.backgroundImg.src = "./images/7rows.jpg";
+        // this.ctx.drawImage(
+        //     this.backgroundImg,
+        //     this.x,
+        //     this.y,
+        //     this.width,
+        //     this.height
+        // );
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
     clear() {

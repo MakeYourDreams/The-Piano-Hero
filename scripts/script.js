@@ -3,14 +3,14 @@ var keys = {"32":true,"49":true,"50":true,"51":true,"37":true,"38":true,"39":tru
 window.onload = function() {
     // document.getElementById("start-button").onclick = function() {
         startGame();
-        var midiArray = defaultSong;
-        var pullMyHairOutTempoScale = 0.0008928572916666667;
-        var convertedNote = "";
-        var midiDelta = 0;
+        // var midiArray = defaultSong;
+        // var pullMyHairOutTempoScale = 0.0008928572916666667;
+        // var convertedNote = "";
+        // var midiDelta = 0;
 
-        setInterval(() => {
-            keyPushed = true;
-        }, 1000);
+        // setInterval(() => {
+        //     keyPushed = true;
+        // }, 1000);
         
           midiArray.forEach( (midiRow, i) => {
     
