@@ -1,3 +1,5 @@
+// to preload song we open console and use the copy(midiArray), and we save the tempo value.
+
 let defaultSong = [
     [
       960,

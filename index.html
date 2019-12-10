@@ -15,6 +15,7 @@
 	<script src="./scripts/script.js"></script>
 	<script src="./scripts/SMFreader.js"></script>
 	<script src="./scripts/defaultsong.js"></script>
+	<script src="./songs/heyjude.js"></script>
 </head>
 <body>
 	<section id="wrapper">
@@ -90,16 +91,48 @@
 					<br>
 					<a href="#" class="myButton">Settings</a>
 					<br>
-					<a href="#" class="myButton">Demo Mode</a>
+					<a href="#" class="myButton">Upload Song</a>
 					<!-- Button Fiddler, The Conductor -->
 				</div>
 				<div id="menu-buttons-play" style="display: none;">
-						<a href="#" class="myButton">Play2</a>
+						<span class="butHeader">Choose Difficulty</span>
+						<div id="menu-buttons">
+						
+						<a id="easy-diff" href="#" class="myButton">Wussy</a>
 						<br>
-						<a href="#" class="myButton">Settings</a>
+						<a id="med-diff" href="#" class="myButton">Conductor</a>
 						<br>
-						<a href="#" class="myButton">Demo Mode</a>
+						<a id="hard-diff" href="#" class="myButton">Crack Addict</a>
+						<br>
+						</div>
 				</div>
+				<div id="menu-buttons-easy" style="display: none;">
+						<div id="menu-buttons">
+						<a id="song1" href="#" class="myButton">Beatles(Hey Jude)</a>
+						<br>
+						<a href="#" class="myButton">Song 2</a>
+						<br>
+						<a href="#" class="myButton">Song 3</a>
+						</div>
+					</div>
+					<div id="menu-buttons-med" style="display: none;">
+							<div id="menu-buttons">
+							<a id="playButton" href="#" class="myButton">Song 1</a>
+							<br>
+							<a href="#" class="myButton">Song 2</a>
+							<br>
+							<a href="#" class="myButton">Song 3</a>
+							</div>
+					</div>
+					<div id="menu-buttons-hard" style="display: none;">
+							<div id="menu-buttons">
+							<a id="playButton" href="#" class="myButton">Song 1</a>
+							<br>
+							<a href="#" class="myButton">Song 2</a>
+							<br>
+							<a href="#" class="myButton">Song 3</a>
+							</div>
+					</div>													
 
 
 				</div>
@@ -117,13 +150,47 @@
 
 
 					  <script type="text/javascript">
-						var button = document.getElementById('playButton')
-						button.addEventListener('click',hideshow,false);
+						document.getElementById('playButton').addEventListener('click',hideshow,false);
+						document.getElementById('easy-diff').addEventListener('click',hideshow1,false);
+						document.getElementById('med-diff').addEventListener('click',hideshow2,false);
+						document.getElementById('hard-diff').addEventListener('click',hideshow3,false);
+						document.getElementById('song1').addEventListener('click',playsong1,false);
+									
+						function playsong1() {
+							refreshGame()
+							playThatFunkyMusic(heyJude, 0.0021114843749999996, false)
+							document.getElementById('menu-overlay').style.display = 'none'; 
+						}  
 					
 						function hideshow() {
 							document.getElementById('menu-buttons').style.display = 'none'; 
 							document.getElementById('menu-buttons-play').style.display = 'block'; 
+						}  
+						function hideshow1() {
+							document.getElementById('menu-buttons-play').style.display = 'none'; 
+							document.getElementById('menu-buttons-easy').style.display = 'block'; 
+						}
+						function hideshow2() {
+							document.getElementById('menu-buttons-play').style.display = 'none'; 
+							document.getElementById('menu-buttons-med').style.display = 'block'; 
+						}
+						function hideshow3() {
+							document.getElementById('menu-buttons-play').style.display = 'none'; 
+							document.getElementById('menu-buttons-hard').style.display = 'block'; 
 						}   
+						
+						function refreshGame(){
+							for(var i=0; i < 99999; i+=1) { 
+							clearInterval(i);
+							}
+							for(var i=0; i < 99999; i+=1) { 
+							clearTimeout(i);
+							}
+							delete(myGame.ctx)
+							delete(myGame)
+							myGame = new Game();
+							myGame.init();
+						}
 					</script>		  
 					  
 			<div id="game-board">

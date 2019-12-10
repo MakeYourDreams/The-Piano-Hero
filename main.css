@@ -34,6 +34,8 @@ canvas {
 	border-radius: 20px;
 }
 
+
+
 #menu-buttons {
 	left:471px;
 	top:250px;
@@ -44,6 +46,29 @@ canvas {
 	margin: 20px;
 }
 
+#menu-buttons-play {
+	/* display: flex;
+	flex-direction: row; */
+	left:471px;
+	top:250px;
+	border-radius: 20px;
+}
+
+#menu-buttons-play a {
+	margin: 20px;
+}
+
+.butHeader{
+		border-bottom:1px solid #dcdcdc;
+		display:inline-block;
+		color:#ffffff;
+		font-size:15px;
+		font-weight:bold;
+		margin-top: 6px;
+		padding:3px 6px;
+		text-decoration:none;
+		text-shadow:0px 1px 0px #ffffff;
+}
 
 .myButton {
 	box-shadow:inset 0px 1px 0px 0px #ffffff;
