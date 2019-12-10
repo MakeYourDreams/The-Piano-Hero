@@ -1,5 +1,8 @@
 let myGame = "";
+
+//auto push the keys for auto play
 var keys = {"32":true,"49":true,"50":true,"51":true,"37":true,"38":true,"39":true}
+
 window.onload = function() {
     // document.getElementById("start-button").onclick = function() {
         startGame();

@@ -70,7 +70,7 @@ class Game {
                     
                     // console.log(this.obstacles[i].noteIndex)
                     // synth.triggerRelease(this.obstacles[i].oNote, ("+" + 0))
-                    synth.triggerAttack(this.obstacles[i].oNote, undefined, this.obstacles[i].oVelocity) //Delta no longer relevant for attack.
+                    if (this.obstacles[i].oNote !== undefined) synth.triggerAttack(this.obstacles[i].oNote, undefined, this.obstacles[i].oVelocity) //Delta no longer relevant for attack.
                     this.obstacles[i].oNote = undefined;
                     // synth.triggerRelease(this.obstacles[i].oNote, ("+" + this.obstacles[i].oDelta))
                         // console.log("oNote == ", this.obstacles[i].oNote);

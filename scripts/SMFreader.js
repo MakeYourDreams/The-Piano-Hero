@@ -2,12 +2,12 @@ var midiFile = {};
 var midiArray = [];
 
 	//a polysynth composed of 8 Voices of Synth
-	var synth = new Tone.PolySynth(8, Tone.Synth, {
-		"oscillator" : {
-			"partials" : [0, 2, 3, 4],
-			type : "triangle"
-		}
-	}).toMaster();
+	// var synth = new Tone.PolySynth(8, Tone.Synth, {
+	// 	"oscillator" : {
+	// 		"partials" : [0, 2, 3, 4],
+	// 		type : "triangle"
+	// 	}
+	// }).toMaster();
 
 	// synth.set({
 	// 	"filter" : {
