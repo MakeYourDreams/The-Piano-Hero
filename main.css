@@ -36,6 +36,13 @@ canvas {
 	border-radius: 20px;
 }
 
+#scoreBoard {
+	position: absolute;
+	left:970px;
+	top:160px;
+	border-radius: 20px;
+}
+
 
 
 #menu-buttons {
@@ -252,7 +259,7 @@ kbd .active {
 }
 .lines .line:nth-child(1)::after {
 	background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #a0a0a0 50%, #3a7c2ee7 100%);
-	-webkit-animation: run 1.5s 0s infinite;
+	-webkit-animation: run 2.0s 0s infinite;
 			animation: run 1.5s 0s infinite;
 	-webkit-animation-fill-mode: forwards;
 			animation-fill-mode: forwards;
@@ -266,7 +273,7 @@ kbd .active {
 }
 .lines .line:nth-child(2)::after {
 	background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #a0a0a0 50%, #eb5050e7 100%);
-	-webkit-animation: run 1.5s 0s infinite;
+	-webkit-animation: run 2.0s 0s infinite;
 			animation: run 1.5s 0s infinite;
 	-webkit-animation-fill-mode: forwards;
 			animation-fill-mode: forwards;
@@ -280,7 +287,7 @@ kbd .active {
   }
 .lines .line:nth-child(3)::after {
 	background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #a0a0a0 50%, #dde754e7 100%);
-	-webkit-animation: run 1.5s 0s infinite;
+	-webkit-animation: run 2.0s 0s infinite;
 			animation: run 1.5s 0s infinite;
 	-webkit-animation-fill-mode: forwards;
 			animation-fill-mode: forwards;
@@ -294,7 +301,7 @@ margin-left: -4.3%;
 }
 .lines .line:nth-child(4)::after {
 	background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #a0a0a0 50%, #ffffffe7 100%);
-	-webkit-animation: run 1.5s 0s infinite;
+	-webkit-animation: run 2.0s 0s infinite;
 			animation: run 1.5s 0s infinite;
 	-webkit-animation-fill-mode: forwards;
 			animation-fill-mode: forwards;
@@ -308,7 +315,7 @@ margin-left: 4.3%;
 }
 .lines .line:nth-child(5)::after {
 	background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #a0a0a0 50%, #4a7edfe7 100%);
-	-webkit-animation: run 1.5s 0s infinite;
+	-webkit-animation: run 2.0s 0s infinite;
 			animation: run 1.5s 0s infinite;
 	-webkit-animation-fill-mode: forwards;
 			animation-fill-mode: forwards;
@@ -322,7 +329,7 @@ margin-left: 12.6%;
 }
 .lines .line:nth-child(6)::after {
 	background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #a0a0a0 50%, #e99d46e7 100%);
-	-webkit-animation: run 1.5s 0s infinite;
+	-webkit-animation: run 2.0s 0s infinite;
 			animation: run 1.5s 0s infinite;
 	-webkit-animation-fill-mode: forwards;
 			animation-fill-mode: forwards;
@@ -336,7 +343,7 @@ margin-left: 21.1%;
 }
 .lines .line:nth-child(7)::after {
 	background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #a0a0a0 50%, #cd45dfe7 100%);
-	-webkit-animation: run 1.5s 0s infinite;
+	-webkit-animation: run 2.0s 0s infinite;
 			animation: run 1.5s 0s infinite;
 	-webkit-animation-fill-mode: forwards;
 			animation-fill-mode: forwards;
@@ -350,7 +357,7 @@ margin-left: 29.55%;
 }
 .lines .line:nth-child(8)::after {
 	background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #a0a0a0 50%, #af60dde7 100%);
-	-webkit-animation: run 1.5s 0s infinite;
+	-webkit-animation: run 2.0s 0s infinite;
 			animation: run 1.5s 0s infinite;
 	-webkit-animation-fill-mode: forwards;
 			animation-fill-mode: forwards;

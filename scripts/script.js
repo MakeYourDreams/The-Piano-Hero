@@ -23,8 +23,10 @@ function playThatFunkyMusic(theSongArray, theTempoScale, autoPlay) {
     var pullMyHairOutTempoScale = theTempoScale;
     var convertedNote = "";
     var midiDelta = 0;
-
+    scorePassed = 0;
+    scoreCorrect = 0;
     if (autoPlay == true){
+        document.getElementById('scoreBoard').innerHTML = 'Demo Mode'
     setInterval(() => {
         keys = {"32":true,"49":true,"50":true,"51":true,"37":true,"38":true,"39":true}
         keyPushed = true;

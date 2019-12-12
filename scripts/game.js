@@ -1,5 +1,7 @@
 // subtract from score if wrong keys are keyPushed to discourage cheating.
-
+let scorePassed = 0;
+let scoreCorrect = 0;
+let scoreBoardScore = 0;
 var keyPushed = true;
 var keys = {};
 window.onkeyup = function(e) {  keys[e.keyCode] = false; }  
@@ -43,7 +45,14 @@ class Game {
                 this.obstacles[i].move();
                 this.obstacles[i].draw();
                 // this.car.crashCollision(this.obstacles[i]);
-                if (this.obstacles[i].y > 600) {
+                if (this.obstacles[i].y > 585) {
+                    if ((demoMode !== true) && (firstStart !== true)){
+                    scorePassed += 1;
+                    scoreBoardScore = (scoreCorrect / scorePassed) * 100
+                    scoreBoardScore = Math.floor(scoreBoardScore)
+                    scoreBoardScore = scoreBoardScore + "%"
+                    document.getElementById('scoreBoard').innerHTML = 'Score: &nbsp;' + scoreBoardScore
+                    }
                     this.obstacles.splice(i, 1);
                 }
                 if ((keys[this.obstacles[i].pKey])) {
@@ -72,7 +81,7 @@ class Game {
                     
                     // console.log(this.obstacles[i].noteIndex)
                     // synth.triggerRelease(this.obstacles[i].oNote, ("+" + 0))
-                    if (this.obstacles[i].oNote !== undefined) synth.triggerAttack(this.obstacles[i].oNote, undefined, this.obstacles[i].oVelocity) //Delta no longer relevant for attack.
+                    if (this.obstacles[i].oNote !== undefined) synth.triggerAttack(this.obstacles[i].oNote, undefined, this.obstacles[i].oVelocity), scoreCorrect += 1; //Delta no longer relevant for attack.
                     this.obstacles[i].oNote = undefined;
                     // synth.triggerRelease(this.obstacles[i].oNote, ("+" + this.obstacles[i].oDelta))
                         // console.log("oNote == ", this.obstacles[i].oNote);

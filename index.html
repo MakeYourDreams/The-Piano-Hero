@@ -24,6 +24,10 @@
 		</header> -->
 
 		<script type="text/javascript">
+		var dist = new Tone.Freeverb({
+roomSize : 0.3,
+dampening : 5500
+}).toMaster();
 			var synth = new Tone.Sampler({
 				"A0" : "A0.[mp3|ogg]",
 				"C1" : "C1.[mp3|ogg]",
@@ -58,7 +62,7 @@
 			}, {
 				"release" : 1,
 				"baseUrl" : "./audio/salamander/"
-			}).toMaster();
+			}).connect(dist);
 		</script>
 
 		
@@ -74,6 +78,17 @@
 						reader = new FileReader();
 						reader.onload = function (event) {
 						weUploadedFile = true;
+						if (demoMode == true){
+							document.getElementById('scoreBoard').innerHTML = 'Demo Mode'
+						setInterval(() => {
+							keys = {"32":true,"49":true,"50":true,"51":true,"37":true,"38":true,"39":true}
+							keyPushed = true;
+						}, 1000);
+						}else{
+							keys = {"32":false,"49":false,"50":false,"51":false,"37":false,"38":false,"39":false}
+							keyPushed = true;
+						}
+	
 						decodeSMF(event.target.result);
 						};
 						reader.onerror = function (event) {
@@ -88,8 +103,9 @@
 
 		<article>
 			<center>
+				<h1 id="scoreBoard" style="margin-top: -120px; margin-bottom: 100px; text-align: right; color: white;">Score:</h1>
 				<div id="menu-overlay">
-						<h1 style="margin-top: -120px; margin-bottom: 100px; color: white;">The Piano Hero</h1>
+					<h1 style="margin-top: -120px; margin-bottom: 100px; color: white;">The Piano Hero</h1>
 					<div id="menu-buttons">
 					<a id="playButton" href="#" class="myButton">Play</a>
 					<br>
@@ -104,7 +120,7 @@
 						
 						<a id="easy-diff" href="#" class="myButton">Wussy</a>
 						<br>
-						<a id="med-diff" href="#" class="myButton">Hero</a>
+						<a id="med-diff" href="#" class="myButton">Conductor</a>
 						<br>
 						<a id="hard-diff" href="#" class="myButton">Crack Addict</a>
 						<br>
@@ -121,7 +137,7 @@
 					</div>
 					<div id="menu-buttons-med" style="display: none;">
 							<div id="menu-buttons">
-							<a id="playButton" href="#" class="myButton">Song 1</a>
+							<a id="playButton" href="#" class="myButton">Star Wars - May the Force be with You</a>
 							<br>
 							<a href="#" class="myButton">Song 2</a>
 							<br>
@@ -132,9 +148,9 @@
 							<div id="menu-buttons">
 							<a id="song7" href="#" class="myButton">Beethoven - For Elise</a>
 							<br>
-							<a href="#" class="myButton">Song 2</a>
+							<a id="song8" href="#" class="myButton">Resident Evil Theme</a>
 							<br>
-							<a href="#" class="myButton">Song 3</a>
+							<a id="song9" href="#" class="myButton">Pirates of the Caribbean</a>
 							</div>
 					</div>													
 
@@ -143,6 +159,8 @@
 							<a id="keyDifficultyButton" href="#" class="myButton">Key Difficulty: (7)</a>
 							<br>
 							<a id="demoModeButton" href="#" class="myButton">Demo Mode: (False)</a>
+							<br>
+							<a id="settingsDone" href="#" class="myButton"><- Back</a>
 							<br>
 							</div>
 					</div>	
@@ -174,7 +192,8 @@
 						
 						document.getElementById('keyDifficultyButton').addEventListener('click',changeKeyDifficulty,false);
 						document.getElementById('demoModeButton').addEventListener('click',changeDemoMode,false);
-						document.getElementById('uploadButton').addEventListener('click',uploadSong,false);
+						document.getElementById('settingsDone').addEventListener('click',backShow,false);
+						document.getElementById('uploadButton').addEventListener('click',uploadsong,false);
 						
 						function changeKeyDifficulty() {
 							(keyDifficulty == true) ? (document.getElementById('keyDifficultyButton').innerText = 'Key Difficulty: (5)', keyDifficulty = false) : (document.getElementById('keyDifficultyButton').innerText = 'Key Difficulty: (7)', keyDifficulty = true); 
@@ -182,7 +201,6 @@
 
 						function changeDemoMode() {
 							(demoMode == false) ? (document.getElementById('demoModeButton').innerText = 'Demo Mode: (True)', demoMode = true) : (document.getElementById('demoModeButton').innerText = 'Demo Mode: (False)', demoMode = false);  
-							setTimeout(() => backShow(), (1000));
 						}     
 
 						function uploadsong() {
@@ -190,15 +208,15 @@
 						}  
 
 						function playsong7() {
+							document.getElementById('menu-overlay').style.display = 'none'; 
 							refreshGame()
 							playThatFunkyMusic(defaultSong, 0.0008928572916666667, demoMode)
-							document.getElementById('menu-overlay').style.display = 'none'; 
 						}  
 					
 						function playsong1() {
+							document.getElementById('menu-overlay').style.display = 'none';
 							refreshGame()
 							playThatFunkyMusic(heyJude, 0.0021114843749999996, demoMode)
-							document.getElementById('menu-overlay').style.display = 'none'; 
 						}  
 					
 						function backShow() {
@@ -226,8 +244,12 @@
 							document.getElementById('menu-buttons-settings').style.display = 'block'; 
 						}     
 
-						
+						let firstStart = true;
 						function refreshGame(){
+							scorePassed = 0;
+   						    scoreCorrect = 0;
+							firstStart = false;
+							document.getElementById('scoreBoard').innerHTML = 'Score: &nbsp;'
 							for(var i=0; i < 99999; i+=1) { 
 							clearInterval(i);
 							}
@@ -268,11 +290,8 @@
 					<kbd>→</kbd> 
 				</li>
 			  </ul>
-			<div id="holder"></div> 
-			<p id="status">File API &amp; FileReader API not supported</p>
-			<p>Drag a MIDI file from your desktop on to the drop zone above to see the browser read the contents of the file without uploading the file to any servers.</p>
-
-			<p id="updates">updates here</p>
+			<p id="status"></p>
+			<p id="updates"></p>
 		</article>
 	</section>
 </body>
