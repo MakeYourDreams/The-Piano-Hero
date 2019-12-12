@@ -1,7 +1,9 @@
+// subtract from score if wrong keys are keyPushed to discourage cheating.
+
 var keyPushed = true;
 var keys = {};
 window.onkeyup = function(e) {  keys[e.keyCode] = false; }  
-window.onkeydown = function(e) { keys = {}; keys[e.keyCode] = true; e.preventDefault(); } //set keys to empty variable to only allow 1 key down event at a time
+window.onkeydown = function(e) { keys[e.keyCode] = true; e.preventDefault(); } //keys = {}; set keys to empty variable to only allow 1 key down event at a time. was making hard to play some songs, removed for now.
 
 // setInterval(() => {console.log(keys[65])}, 1000)
 
@@ -103,7 +105,7 @@ class Game {
         // );
         var canvas = document.getElementById("canvas");
         var ctx = canvas.getContext("2d");
-        ctx.fillStyle = "black";
+        ctx.fillStyle = "#0e0e0e";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 

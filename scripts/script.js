@@ -31,7 +31,7 @@ function playThatFunkyMusic(theSongArray, theTempoScale, autoPlay) {
     }, 1000);
     }else{
         keys = {"32":false,"49":false,"50":false,"51":false,"37":false,"38":false,"39":false}
-        keyPushed = false;
+        keyPushed = true;
     }
     
       midiArray.forEach( (midiRow, i) => {

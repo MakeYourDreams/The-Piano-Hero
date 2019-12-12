@@ -1,10 +1,12 @@
-
+.hidden {
+	visibility: hidden;
+  }
 
 body { 
   font: normal 16px/20px "Helvetica Neue", Helvetica, sans-serif;
   background: rgb(237, 237, 236);
   margin: 0;
-  margin-top: 40px;
+  margin-top: 0px;
   padding: 0;
 }
 
@@ -30,7 +32,7 @@ canvas {
 	position: absolute;
 	background-color: rgba(150, 150, 150, 0.3);
 	left:471px;
-	top:250px;
+	top:160px;
 	border-radius: 20px;
 }
 
@@ -219,7 +221,7 @@ kbd .active {
 .lines {
 	z-index: -10;
   position: absolute;
-  top: 0;
+  top: -143px;
   left: 0;
   right: 0;
   height: 570px;
@@ -243,18 +245,19 @@ kbd .active {
   width: 100%;
   top: -50%;
   left: 0;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #a0a0a0 50%, #91c2f0e7 100%);
-  -webkit-animation: run 1s 0s infinite;
-          animation: run 1s 0s infinite;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
-  -webkit-animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
-          animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
+
 }
 .lines .line:nth-child(1) {
   margin-left: -29.55%;
 }
 .lines .line:nth-child(1)::after {
+	background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #a0a0a0 50%, #3a7c2ee7 100%);
+	-webkit-animation: run 1.5s 0s infinite;
+			animation: run 1.5s 0s infinite;
+	-webkit-animation-fill-mode: forwards;
+			animation-fill-mode: forwards;
+	-webkit-animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
+			animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
   -webkit-animation-delay: 2s;
           animation-delay: 2s;
 }
@@ -262,6 +265,13 @@ kbd .active {
   margin-left: -21.1%;
 }
 .lines .line:nth-child(2)::after {
+	background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #a0a0a0 50%, #eb5050e7 100%);
+	-webkit-animation: run 1.5s 0s infinite;
+			animation: run 1.5s 0s infinite;
+	-webkit-animation-fill-mode: forwards;
+			animation-fill-mode: forwards;
+	-webkit-animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
+			animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
   -webkit-animation-delay: 2.5s;
           animation-delay: 2.5s;
 }
@@ -269,6 +279,13 @@ kbd .active {
 	margin-left: -12.6%;
   }
 .lines .line:nth-child(3)::after {
+	background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #a0a0a0 50%, #dde754e7 100%);
+	-webkit-animation: run 1.5s 0s infinite;
+			animation: run 1.5s 0s infinite;
+	-webkit-animation-fill-mode: forwards;
+			animation-fill-mode: forwards;
+	-webkit-animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
+			animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
 -webkit-animation-delay: 3.0s;
 		animation-delay: 3.0s;
 }
@@ -276,6 +293,13 @@ kbd .active {
 margin-left: -4.3%;
 }
 .lines .line:nth-child(4)::after {
+	background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #a0a0a0 50%, #ffffffe7 100%);
+	-webkit-animation: run 1.5s 0s infinite;
+			animation: run 1.5s 0s infinite;
+	-webkit-animation-fill-mode: forwards;
+			animation-fill-mode: forwards;
+	-webkit-animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
+			animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
 -webkit-animation-delay: 3.5s;
 		animation-delay: 3.5s;
 }
@@ -283,6 +307,13 @@ margin-left: -4.3%;
 margin-left: 4.3%;
 }
 .lines .line:nth-child(5)::after {
+	background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #a0a0a0 50%, #4a7edfe7 100%);
+	-webkit-animation: run 1.5s 0s infinite;
+			animation: run 1.5s 0s infinite;
+	-webkit-animation-fill-mode: forwards;
+			animation-fill-mode: forwards;
+	-webkit-animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
+			animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
 -webkit-animation-delay: 4.0s;
 animation-delay: 4.0s;
 }  
@@ -290,6 +321,13 @@ animation-delay: 4.0s;
 margin-left: 12.6%;
 }
 .lines .line:nth-child(6)::after {
+	background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #a0a0a0 50%, #e99d46e7 100%);
+	-webkit-animation: run 1.5s 0s infinite;
+			animation: run 1.5s 0s infinite;
+	-webkit-animation-fill-mode: forwards;
+			animation-fill-mode: forwards;
+	-webkit-animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
+			animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
 -webkit-animation-delay: 34.5s;
 animation-delay: 4.5s;
 }  
@@ -297,6 +335,13 @@ animation-delay: 4.5s;
 margin-left: 21.1%;
 }
 .lines .line:nth-child(7)::after {
+	background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #a0a0a0 50%, #cd45dfe7 100%);
+	-webkit-animation: run 1.5s 0s infinite;
+			animation: run 1.5s 0s infinite;
+	-webkit-animation-fill-mode: forwards;
+			animation-fill-mode: forwards;
+	-webkit-animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
+			animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
 -webkit-animation-delay: 5.0s;
 animation-delay: 5.0s;
 }  
@@ -304,6 +349,13 @@ animation-delay: 5.0s;
 margin-left: 29.55%;
 }
 .lines .line:nth-child(8)::after {
+	background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #a0a0a0 50%, #af60dde7 100%);
+	-webkit-animation: run 1.5s 0s infinite;
+			animation: run 1.5s 0s infinite;
+	-webkit-animation-fill-mode: forwards;
+			animation-fill-mode: forwards;
+	-webkit-animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
+			animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
 -webkit-animation-delay: 5.5s;
 animation-delay: 5.5s;
 				}    

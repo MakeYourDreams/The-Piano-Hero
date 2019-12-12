@@ -19,9 +19,9 @@
 </head>
 <body>
 	<section id="wrapper">
-		<header>
-			<h1>Standard MIDI File Reader</h1>
-		</header>
+		<!-- <header>
+			<center><h1>The Piano Hero</h1></center>
+		</header> -->
 
 		<script type="text/javascript">
 			var synth = new Tone.Sampler({
@@ -61,16 +61,19 @@
 			}).toMaster();
 		</script>
 
-		<input type='file' accept='.MID' onchange='openFile(event)'><br>
-		<img id='output'>
 		
 		<script>
-		  var openFile = function(event) {
-			  
+		 	let weUploadedFile = false;
+		    var openFile = function(event) {
+			refreshGame()
+			document.getElementById('menu-overlay').style.display = 'none'; 
+			keys = {"32":false,"49":false,"50":false,"51":false,"37":false,"38":false,"39":false}
+            keyPushed = true;
 			var input = event.target;
-		
+				
 						reader = new FileReader();
 						reader.onload = function (event) {
+						weUploadedFile = true;
 						decodeSMF(event.target.result);
 						};
 						reader.onerror = function (event) {
@@ -86,13 +89,14 @@
 		<article>
 			<center>
 				<div id="menu-overlay">
+						<h1 style="margin-top: -120px; margin-bottom: 100px; color: white;">The Piano Hero</h1>
 					<div id="menu-buttons">
 					<a id="playButton" href="#" class="myButton">Play</a>
 					<br>
-					<a href="#" class="myButton">Settings</a>
+					<a id="settingsButton" href="#" class="myButton">Settings</a>
 					<br>
-					<a href="#" class="myButton">Upload Song</a>
-					<!-- Button Fiddler, The Conductor -->
+					<input accept='.MID' onchange='openFile(event)' type="file" id="uploadButton" class="hidden">
+					<label for="uploadButton" class="myButton">Upload Song</label>
 				</div>
 				<div id="menu-buttons-play" style="display: none;">
 						<span class="butHeader">Choose Difficulty</span>
@@ -100,7 +104,7 @@
 						
 						<a id="easy-diff" href="#" class="myButton">Wussy</a>
 						<br>
-						<a id="med-diff" href="#" class="myButton">Conductor</a>
+						<a id="med-diff" href="#" class="myButton">Hero</a>
 						<br>
 						<a id="hard-diff" href="#" class="myButton">Crack Addict</a>
 						<br>
@@ -108,7 +112,7 @@
 				</div>
 				<div id="menu-buttons-easy" style="display: none;">
 						<div id="menu-buttons">
-						<a id="song1" href="#" class="myButton">Beatles(Hey Jude)</a>
+						<a id="song1" href="#" class="myButton">Beatles - Hey Jude</a>
 						<br>
 						<a href="#" class="myButton">Song 2</a>
 						<br>
@@ -126,7 +130,7 @@
 					</div>
 					<div id="menu-buttons-hard" style="display: none;">
 							<div id="menu-buttons">
-							<a id="playButton" href="#" class="myButton">Song 1</a>
+							<a id="song7" href="#" class="myButton">Beethoven - For Elise</a>
 							<br>
 							<a href="#" class="myButton">Song 2</a>
 							<br>
@@ -134,7 +138,14 @@
 							</div>
 					</div>													
 
-
+					<div id="menu-buttons-settings" style="display: none;">
+							<div id="menu-buttons">
+							<a id="keyDifficultyButton" href="#" class="myButton">Key Difficulty: (7)</a>
+							<br>
+							<a id="demoModeButton" href="#" class="myButton">Demo Mode: (False)</a>
+							<br>
+							</div>
+					</div>	
 				</div>
 				
 				<div class="lines">
@@ -150,18 +161,50 @@
 
 
 					  <script type="text/javascript">
+						let demoMode = false;
+						let keyDifficulty = true;
 						document.getElementById('playButton').addEventListener('click',hideshow,false);
 						document.getElementById('easy-diff').addEventListener('click',hideshow1,false);
 						document.getElementById('med-diff').addEventListener('click',hideshow2,false);
 						document.getElementById('hard-diff').addEventListener('click',hideshow3,false);
+						document.getElementById('settingsButton').addEventListener('click',hideshow4,false);
 						document.getElementById('song1').addEventListener('click',playsong1,false);
-									
-						function playsong1() {
+						document.getElementById('song7').addEventListener('click',playsong7,false);
+						document.getElementById('song7').addEventListener('click',playsong7,false);
+						
+						document.getElementById('keyDifficultyButton').addEventListener('click',changeKeyDifficulty,false);
+						document.getElementById('demoModeButton').addEventListener('click',changeDemoMode,false);
+						document.getElementById('uploadButton').addEventListener('click',uploadSong,false);
+						
+						function changeKeyDifficulty() {
+							(keyDifficulty == true) ? (document.getElementById('keyDifficultyButton').innerText = 'Key Difficulty: (5)', keyDifficulty = false) : (document.getElementById('keyDifficultyButton').innerText = 'Key Difficulty: (7)', keyDifficulty = true); 
+						}     
+
+						function changeDemoMode() {
+							(demoMode == false) ? (document.getElementById('demoModeButton').innerText = 'Demo Mode: (True)', demoMode = true) : (document.getElementById('demoModeButton').innerText = 'Demo Mode: (False)', demoMode = false);  
+							setTimeout(() => backShow(), (1000));
+						}     
+
+						function uploadsong() {
+							document.getElementsByTagName('label')[0].innerText = "Select MIDI File"
+						}  
+
+						function playsong7() {
 							refreshGame()
-							playThatFunkyMusic(heyJude, 0.0021114843749999996, false)
+							playThatFunkyMusic(defaultSong, 0.0008928572916666667, demoMode)
 							document.getElementById('menu-overlay').style.display = 'none'; 
 						}  
 					
+						function playsong1() {
+							refreshGame()
+							playThatFunkyMusic(heyJude, 0.0021114843749999996, demoMode)
+							document.getElementById('menu-overlay').style.display = 'none'; 
+						}  
+					
+						function backShow() {
+							document.getElementById('menu-buttons').style.display = 'block'; 
+							document.getElementById('menu-buttons-settings').style.display = 'none'; 
+						}  
 						function hideshow() {
 							document.getElementById('menu-buttons').style.display = 'none'; 
 							document.getElementById('menu-buttons-play').style.display = 'block'; 
@@ -177,7 +220,12 @@
 						function hideshow3() {
 							document.getElementById('menu-buttons-play').style.display = 'none'; 
 							document.getElementById('menu-buttons-hard').style.display = 'block'; 
-						}   
+						} 
+						function hideshow4() {
+							document.getElementById('menu-buttons').style.display = 'none'; 
+							document.getElementById('menu-buttons-settings').style.display = 'block'; 
+						}     
+
 						
 						function refreshGame(){
 							for(var i=0; i < 99999; i+=1) { 

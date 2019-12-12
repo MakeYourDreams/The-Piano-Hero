@@ -5,6 +5,14 @@ class Obstacle extends Component {
         
         this.x = 95, this.kColor = "#0F9D58";
 
+        if (oNote >= 55) this.x = 95, this.pKey = 49, this.kColor = "#0F9D58", this.noteIndex = "n1";  
+        if (oNote >= 61) this.x = 202, this.pKey = 50, this.kColor = "#DB4437", this.noteIndex = "n2";  
+        if (oNote >= 65) this.x = 306, this.pKey = 51, this.kColor = "#F4B400", this.noteIndex = "n3";  
+        if (oNote >= 73) this.x = 410, this.pKey = 32, this.kColor = "#FFF", this.noteIndex = "n4";  
+        if (oNote >= 82) this.x = 515, this.pKey = 37, this.kColor = "#4285F4", this.noteIndex = "n5";  
+        if (oNote >= 87) this.x = 619, this.pKey = 38, this.kColor = "rgb(255, 136, 0)", this.noteIndex = "n6";  
+        if (oNote >= 98) this.x = 729, this.pKey = 39, this.kColor = "rgb(187, 0, 244)", this.noteIndex = "n7"; 
+
         if (oNote >= 110) this.x = 95, this.pKey = 49, this.kColor = "#0F9D58", this.noteIndex = "n1";  
         if (oNote >= 123) this.x = 202, this.pKey = 50, this.kColor = "#DB4437", this.noteIndex = "n2";  
         if (oNote >= 131) this.x = 306, this.pKey = 51, this.kColor = "#F4B400", this.noteIndex = "n3";  
