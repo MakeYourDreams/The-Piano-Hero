@@ -1,11 +1,11 @@
-// subtract from score if wrong keys are keyPushed to discourage cheating.
 let scorePassed = 0;
 let scoreCorrect = 0;
 let scoreBoardScore = 0;
 var keyPushed = true;
 var keys = {};
-window.onkeyup = function(e) {  keys[e.keyCode] = false; }  
-window.onkeydown = function(e) { keys[e.keyCode] = true; e.preventDefault(); } //keys = {}; set keys to empty variable to only allow 1 key down event at a time. was making hard to play some songs, removed for now.
+var numKeysPushed = 0;
+window.onkeyup = function(e) {  keys[e.keyCode] = false; numKeysPushed -= 1}  
+window.onkeydown = function(e) { (numKeysPushed > 3) ? (keys= {}, numKeysPushed = 0):""; keys[e.keyCode] = true; numKeysPushed += 1;e.preventDefault(); } //keys = {}; set keys to empty variable to depress keys after short time if multiple keys are held down.
 
 // setInterval(() => {console.log(keys[65])}, 1000)
 

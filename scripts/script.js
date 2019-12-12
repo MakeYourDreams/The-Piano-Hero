@@ -8,7 +8,7 @@ window.onload = function() {
         startGame();
     // };
 
-    playThatFunkyMusic(defaultSong, 0.0008928572916666667, true)
+    playThatFunkyMusic(nocturne, 0.015416666666666666, true)
 
     function startGame() {
          myGame = new Game();
@@ -25,6 +25,9 @@ function playThatFunkyMusic(theSongArray, theTempoScale, autoPlay) {
     var midiDelta = 0;
     scorePassed = 0;
     scoreCorrect = 0;
+    if (firstStart !== true){
+        document.getElementById('menuButton').style.display = 'block'; 
+    }
     if (autoPlay == true){
         document.getElementById('scoreBoard').innerHTML = 'Demo Mode'
     setInterval(() => {

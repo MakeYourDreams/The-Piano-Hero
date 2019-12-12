@@ -16,6 +16,8 @@
 	<script src="./scripts/SMFreader.js"></script>
 	<script src="./scripts/defaultsong.js"></script>
 	<script src="./songs/heyjude.js"></script>
+	<script src="./songs/gymnopede.js"></script>
+	<script src="./songs/nocturne.js"></script>
 </head>
 <body>
 	<section id="wrapper">
@@ -25,8 +27,8 @@
 
 		<script type="text/javascript">
 		var dist = new Tone.Freeverb({
-roomSize : 0.3,
-dampening : 5500
+roomSize : 0.7,
+dampening : 3000
 }).toMaster();
 			var synth = new Tone.Sampler({
 				"A0" : "A0.[mp3|ogg]",
@@ -103,9 +105,10 @@ dampening : 5500
 
 		<article>
 			<center>
-				<h1 id="scoreBoard" style="margin-top: -120px; margin-bottom: 100px; text-align: right; color: white;">Score:</h1>
-				<div id="menu-overlay">
-					<h1 style="margin-top: -120px; margin-bottom: 100px; color: white;">The Piano Hero</h1>
+				<h1 id="scoreBoard">Score:</h1>
+				<a id="menuButton" href="#" style="text-decoration:none;">☰</a>
+				<div id="menu-overlay" style="display:block;">
+					<h1 style="margin-top: -88px; margin-bottom: 70px; color: white;">The Piano Hero</h1>
 					<div id="menu-buttons">
 					<a id="playButton" href="#" class="myButton">Play</a>
 					<br>
@@ -113,9 +116,11 @@ dampening : 5500
 					<br>
 					<input accept='.MID' onchange='openFile(event)' type="file" id="uploadButton" class="hidden">
 					<label for="uploadButton" class="myButton">Upload Song</label>
+					<a id="helpButton" href="#" style="position: absolute; margin-top: 60px; margin-left: 63px;text-decoration:none;">❔</a>
+					<a id="muteButton" href="#" style="position: absolute; margin-top: 60px; margin-left: 35px;text-decoration:none;">🔇</a>
 				</div>
 				<div id="menu-buttons-play" style="display: none;">
-						<span class="butHeader">Choose Difficulty</span>
+						<span class="butHeader">Difficulty</span>
 						<div id="menu-buttons">
 						
 						<a id="easy-diff" href="#" class="myButton">Wussy</a>
@@ -137,9 +142,9 @@ dampening : 5500
 					</div>
 					<div id="menu-buttons-med" style="display: none;">
 							<div id="menu-buttons">
-							<a id="playButton" href="#" class="myButton">Star Wars - May the Force be with You</a>
+							<a id="song4" href="#" class="myButton">Star Wars - May the Force be with You</a>
 							<br>
-							<a href="#" class="myButton">Song 2</a>
+							<a id="song5" href="#" class="myButton">Erik Satie - Gymnopédie No.1</a>
 							<br>
 							<a href="#" class="myButton">Song 3</a>
 							</div>
@@ -150,7 +155,7 @@ dampening : 5500
 							<br>
 							<a id="song8" href="#" class="myButton">Resident Evil Theme</a>
 							<br>
-							<a id="song9" href="#" class="myButton">Pirates of the Caribbean</a>
+							<a id="song9" href="#" class="myButton">Chopin - Nocturne op.9 No.2</a>
 							</div>
 					</div>													
 
@@ -160,10 +165,16 @@ dampening : 5500
 							<br>
 							<a id="demoModeButton" href="#" class="myButton">Demo Mode: (False)</a>
 							<br>
-							<a id="settingsDone" href="#" class="myButton"><- Back</a>
+							<a id="settingsDone" href="#" class="myButton">⇦</a>
 							<br>
 							</div>
 					</div>	
+					<div id="menu-buttons-help" style="background-color: gray; position: absolute; margin-top: 75px;display: none;">
+							<li>Multiple keys can be held down for a short time.<br>One key can be held down continuously.</li>
+							<br>
+							<li>Upload a MIDI file to generate a new song. <br>Not all MIDI files will work.</li>
+				</div>	
+
 				</div>
 				
 				<div class="lines">
@@ -187,37 +198,88 @@ dampening : 5500
 						document.getElementById('hard-diff').addEventListener('click',hideshow3,false);
 						document.getElementById('settingsButton').addEventListener('click',hideshow4,false);
 						document.getElementById('song1').addEventListener('click',playsong1,false);
+						document.getElementById('song5').addEventListener('click',playsong5,false);
 						document.getElementById('song7').addEventListener('click',playsong7,false);
-						document.getElementById('song7').addEventListener('click',playsong7,false);
+						document.getElementById('song9').addEventListener('click',playsong9,false);
 						
-						document.getElementById('keyDifficultyButton').addEventListener('click',changeKeyDifficulty,false);
-						document.getElementById('demoModeButton').addEventListener('click',changeDemoMode,false);
+						document.getElementById('keyDifficultyButton').addEventListener('click',changekeydifficulty,false);
+						document.getElementById('demoModeButton').addEventListener('click',changedemoMode,false);
 						document.getElementById('settingsDone').addEventListener('click',backShow,false);
 						document.getElementById('uploadButton').addEventListener('click',uploadsong,false);
+						document.getElementById('muteButton').addEventListener('click',mutesong,false);
+						document.getElementById('menuButton').addEventListener('click',showmenu,false);
 						
-						function changeKeyDifficulty() {
+						document.getElementById('helpButton').addEventListener('mouseover',showhelp,false);
+						document.getElementById('helpButton').addEventListener('mouseleave',hidehelp,false);
+						
+						function showmenu() {
+							if (document.getElementById('menu-overlay').style.display == 'block') {
+							document.getElementById('menu-overlay').style.display = 'none';
+							document.getElementById('menu-buttons-settings').style.display = 'none'; 
+							document.getElementById('menu-buttons-hard').style.display = 'none'; 
+							document.getElementById('menu-buttons-med').style.display = 'none'; 
+							document.getElementById('menu-buttons-easy').style.display = 'none'; 
+							document.getElementById('menu-buttons-play').style.display = 'none'; 
+							document.getElementById('menu-buttons-settings').style.display = 'none'; 
+							} else {
+							document.getElementById('menu-buttons').style.display = 'block'; 
+							document.getElementById('menu-overlay').style.display = 'block';
+							}
+						}     
+
+						function showhelp() {
+							document.getElementById('menu-buttons-help').style.display = 'block'
+						}     
+						function hidehelp() {
+							document.getElementById('menu-buttons-help').style.display = 'none'
+						}     
+
+						function mutesong() {
+							document.getElementById('muteButton').style.display = 'none'
+							refreshGame()
+						}     
+						
+						function changekeydifficulty() {
 							(keyDifficulty == true) ? (document.getElementById('keyDifficultyButton').innerText = 'Key Difficulty: (5)', keyDifficulty = false) : (document.getElementById('keyDifficultyButton').innerText = 'Key Difficulty: (7)', keyDifficulty = true); 
 						}     
 
-						function changeDemoMode() {
+						function changedemoMode() {
 							(demoMode == false) ? (document.getElementById('demoModeButton').innerText = 'Demo Mode: (True)', demoMode = true) : (document.getElementById('demoModeButton').innerText = 'Demo Mode: (False)', demoMode = false);  
 						}     
 
 						function uploadsong() {
-							document.getElementsByTagName('label')[0].innerText = "Select MIDI File"
+							midiArray = [];
+							document.getElementsByTagName('label')[0].innerText = "Select .MIDI"
 						}  
-
-						function playsong7() {
-							document.getElementById('menu-overlay').style.display = 'none'; 
-							refreshGame()
-							playThatFunkyMusic(defaultSong, 0.0008928572916666667, demoMode)
-						}  
-					
+						
 						function playsong1() {
 							document.getElementById('menu-overlay').style.display = 'none';
 							refreshGame()
 							playThatFunkyMusic(heyJude, 0.0021114843749999996, demoMode)
 						}  
+
+						function playsong5() {
+							document.getElementById('menu-overlay').style.display = 'none'; 
+							refreshGame()
+							playThatFunkyMusic(gymnopede, 0.007575758333333333, demoMode)
+						}  
+
+						function playsong7() {
+							document.getElementById('menu-overlay').style.display = 'none'; 
+							refreshGame()
+							playThatFunkyMusic(defaultSong, 0.0009928572916666667, demoMode)
+						}  
+					
+						function playsong9() {
+							document.getElementById('menu-overlay').style.display = 'none';
+							refreshGame()
+							playThatFunkyMusic(nocturne, 0.015416666666666666, demoMode)
+						}  
+						// function playsong5() {
+						// 	document.getElementById('menu-overlay').style.display = 'none';
+						// 	refreshGame()
+						// 	playThatFunkyMusic(gymnopede, 0.0021114843749999996, demoMode)
+						// }  
 					
 						function backShow() {
 							document.getElementById('menu-buttons').style.display = 'block'; 
@@ -249,6 +311,11 @@ dampening : 5500
 							scorePassed = 0;
    						    scoreCorrect = 0;
 							firstStart = false;
+							document.getElementById('menu-buttons-settings').style.display = 'none'; 
+							document.getElementById('menu-buttons-hard').style.display = 'none'; 
+							document.getElementById('menu-buttons-med').style.display = 'none'; 
+							document.getElementById('menu-buttons-easy').style.display = 'none'; 
+							document.getElementById('menu-buttons-play').style.display = 'none'; 
 							document.getElementById('scoreBoard').innerHTML = 'Score: &nbsp;'
 							for(var i=0; i < 99999; i+=1) { 
 							clearInterval(i);

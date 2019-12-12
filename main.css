@@ -32,7 +32,7 @@ canvas {
 	position: absolute;
 	background-color: rgba(150, 150, 150, 0.3);
 	left:471px;
-	top:160px;
+	top:130px;
 	border-radius: 20px;
 }
 
@@ -41,6 +41,21 @@ canvas {
 	left:970px;
 	top:160px;
 	border-radius: 20px;
+	margin-top: -120px; 
+	margin-bottom: 100px; 
+	text-align: right; 
+	color: white;
+}
+
+#menuButton {
+	position: absolute;
+	left:280px;
+	top:160px;
+	border-radius: 20px;
+	margin-top: -120px; 
+	margin-bottom: 100px; 
+	text-align: right; 
+	color: white;
 }
 
 
@@ -145,7 +160,7 @@ footer > * {
 	margin-left: -10px;
 }
  ul .key {
-	margin-top: -22px;
+	margin-top: -25px;
 	 margin-left: 17px;
 	 margin-right: 17px;
 	 position: relative;
@@ -265,8 +280,8 @@ kbd .active {
 			animation-fill-mode: forwards;
 	-webkit-animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
 			animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
-  -webkit-animation-delay: 2s;
-          animation-delay: 2s;
+  -webkit-animation-delay: 5s;
+          animation-delay: 5s;
 }
 .lines .line:nth-child(2) {
   margin-left: -21.1%;
@@ -279,8 +294,8 @@ kbd .active {
 			animation-fill-mode: forwards;
 	-webkit-animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
 			animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
-  -webkit-animation-delay: 2.5s;
-          animation-delay: 2.5s;
+  -webkit-animation-delay: 5.5s;
+          animation-delay: 5.5s;
 }
 .lines .line:nth-child(3) {
 	margin-left: -12.6%;
@@ -293,8 +308,8 @@ kbd .active {
 			animation-fill-mode: forwards;
 	-webkit-animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
 			animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
--webkit-animation-delay: 3.0s;
-		animation-delay: 3.0s;
+-webkit-animation-delay: 6.0s;
+		animation-delay: 6.0s;
 }
 .lines .line:nth-child(4) {
 margin-left: -4.3%;
@@ -307,8 +322,8 @@ margin-left: -4.3%;
 			animation-fill-mode: forwards;
 	-webkit-animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
 			animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
--webkit-animation-delay: 3.5s;
-		animation-delay: 3.5s;
+-webkit-animation-delay: 6.5s;
+		animation-delay: 6.5s;
 }
 .lines .line:nth-child(5) {
 margin-left: 4.3%;
@@ -321,8 +336,8 @@ margin-left: 4.3%;
 			animation-fill-mode: forwards;
 	-webkit-animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
 			animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
--webkit-animation-delay: 4.0s;
-animation-delay: 4.0s;
+-webkit-animation-delay: 7.0s;
+animation-delay: 7.0s;
 }  
 .lines .line:nth-child(6) {
 margin-left: 12.6%;
@@ -335,8 +350,8 @@ margin-left: 12.6%;
 			animation-fill-mode: forwards;
 	-webkit-animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
 			animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
--webkit-animation-delay: 34.5s;
-animation-delay: 4.5s;
+-webkit-animation-delay: 7.5s;
+animation-delay: 7.5s;
 }  
 .lines .line:nth-child(7) {
 margin-left: 21.1%;
@@ -349,8 +364,8 @@ margin-left: 21.1%;
 			animation-fill-mode: forwards;
 	-webkit-animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
 			animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
--webkit-animation-delay: 5.0s;
-animation-delay: 5.0s;
+-webkit-animation-delay: 8.0s;
+animation-delay: 8.0s;
 }  
 .lines .line:nth-child(8) {
 margin-left: 29.55%;
@@ -363,8 +378,8 @@ margin-left: 29.55%;
 			animation-fill-mode: forwards;
 	-webkit-animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
 			animation-timing-function: cubic-bezier(0.4, 0.26, 0, 0.97);
--webkit-animation-delay: 5.5s;
-animation-delay: 5.5s;
+-webkit-animation-delay: 8.5s;
+animation-delay: 8.5s;
 				}    
 
 @-webkit-keyframes run {

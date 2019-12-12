@@ -1,5 +1,6 @@
 var midiFile = {};
 var midiArray = [];
+var theTrackName = "";
 
 	//a polysynth composed of 8 Voices of Synth
 	// var synth = new Tone.PolySynth(8, Tone.Synth, {
@@ -136,7 +137,7 @@ function dumpFileInfo( e ) {	// Performs a simple dump of the MIDI file
 		convertedNote = ((Math.pow(2,(((midiRow[2])-69)/12))) * 440) // converts MIDI to HZ frequency. Hell yeah, science!
 		convertedNote = Math.round(convertedNote * 100) / 100
 		if (midiRow[1] == 144) {
-
+			if (midiRow[3] == 0) midiRow[3] = 11;
 			if (midiDelta == 0) midiDelta += 0.1 //prevents infinite sound bug
 			// synth.triggerAttack(convertedNote, midiDelta, (midiRow[3] / 127))
 			
@@ -263,6 +264,7 @@ function decodeMetaEvent( data, trackOffset, track, trackEvent ) {
 		for (i=0; i<metaData.length; i++)
 		   str += String.fromCharCode( metaData[i]);
 		track.trackName = str;
+		theTrackName = str;
 	}
 
 	return idx;
