@@ -137,7 +137,7 @@ function dumpFileInfo( e ) {	// Performs a simple dump of the MIDI file
 
 		convertedNote = ((Math.pow(2,(((midiRow[2])-69)/12))) * 440) // converts MIDI to HZ frequency. Hell yeah, science!
 		convertedNote = Math.round(convertedNote * 100) / 100
-		if ((midiRow[1] == 149) || (midiRow[1] == 146)) {
+		if ((midiRow[1] == 144) || (midiRow[1] == 145)) {
 			progressNotes += 1;
 			if (midiRow[3] == 0) midiRow[3] = 11;
 			if (midiDelta == 0) midiDelta += 0.1 //prevents infinite sound bug
