@@ -1,4 +1,5 @@
 let myGame = "";
+var midiArray = [];
 
 //auto push the keys for auto play
 var keys = {"32":true,"49":true,"50":true,"51":true,"37":true,"38":true,"39":true}
@@ -19,15 +20,12 @@ window.onload = function() {
 
 
 function playThatFunkyMusic(theSongArray, theTempoScale, autoPlay) {
-    var midiArray = theSongArray;
+    midiArray = theSongArray;
     var pullMyHairOutTempoScale = theTempoScale;
     var convertedNote = "";
     var midiDelta = 0;
     scorePassed = 0;
     scoreCorrect = 0;
-    if (firstStart !== true){
-        document.getElementById('menuButton').style.display = 'block'; 
-    }
     if (autoPlay == true){
         document.getElementById('scoreBoard').innerHTML = 'Demo Mode'
     setInterval(() => {
@@ -49,7 +47,8 @@ function playThatFunkyMusic(theSongArray, theTempoScale, autoPlay) {
         convertedNote = ((Math.pow(2,(((midiRow[2])-69)/12))) * 440) // converts MIDI to HZ frequency. Hell yeah, science!
         convertedNote = Math.round(convertedNote * 100) / 100
         if (midiRow[1] == 144) {
-
+            progressNotes += 1;
+            if (midiRow[3] == 0) midiRow[3] = 11;
             if (midiDelta == 0) midiDelta += 0.1 //prevents infinite sound bug
             // synth.triggerAttack(convertedNote, midiDelta, (midiRow[3] / 127))
             

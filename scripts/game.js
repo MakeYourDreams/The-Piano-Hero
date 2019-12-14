@@ -1,6 +1,7 @@
 let scorePassed = 0;
 let scoreCorrect = 0;
 let scoreBoardScore = 0;
+let progressPercent = 0
 var keyPushed = true;
 var keys = {};
 var numKeysPushed = 0;
@@ -46,8 +47,10 @@ class Game {
                 this.obstacles[i].draw();
                 // this.car.crashCollision(this.obstacles[i]);
                 if (this.obstacles[i].y > 585) {
-                    if ((demoMode !== true) && (firstStart !== true)){
                     scorePassed += 1;
+                    progressPercent = 100 - ((scorePassed / progressNotes) * 100)
+                    document.getElementById('progressBar').style.height = progressPercent + '%'
+                    if ((demoMode !== true) && (firstStart !== true)){
                     scoreBoardScore = (scoreCorrect / scorePassed) * 100
                     scoreBoardScore = Math.floor(scoreBoardScore)
                     scoreBoardScore = scoreBoardScore + "%"

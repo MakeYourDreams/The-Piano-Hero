@@ -18,6 +18,11 @@
 	<script src="./songs/heyjude.js"></script>
 	<script src="./songs/gymnopede.js"></script>
 	<script src="./songs/nocturne.js"></script>
+	<script src="./songs/harrypotter.js"></script>
+	<script src="./songs/skrillex.js"></script>
+	<script src="./songs/madworld.js"></script>
+	<script src="./songs/pianoman.js"></script>
+	<script src="./songs/starwars.js"></script>
 </head>
 <body>
 	<section id="wrapper">
@@ -27,8 +32,8 @@
 
 		<script type="text/javascript">
 		var dist = new Tone.Freeverb({
-roomSize : 0.7,
-dampening : 3000
+roomSize : 0.52,
+dampening : 3100
 }).toMaster();
 			var synth = new Tone.Sampler({
 				"A0" : "A0.[mp3|ogg]",
@@ -107,6 +112,9 @@ dampening : 3000
 			<center>
 				<h1 id="scoreBoard">Score:</h1>
 				<a id="menuButton" href="#" style="text-decoration:none;">☰</a>
+				<div id="menuButton" style="height:54%;margin-top:-70px;margin-left: 7px;">
+				<div id="progressBar">&nbsp;</div>
+				</div>
 				<div id="menu-overlay" style="display:block;">
 					<h1 style="margin-top: -88px; margin-bottom: 70px; color: white;">The Piano Hero</h1>
 					<div id="menu-buttons">
@@ -117,7 +125,7 @@ dampening : 3000
 					<input accept='.MID' onchange='openFile(event)' type="file" id="uploadButton" class="hidden">
 					<label for="uploadButton" class="myButton">Upload Song</label>
 					<a id="helpButton" href="#" style="position: absolute; margin-top: 60px; margin-left: 63px;text-decoration:none;">❔</a>
-					<a id="muteButton" href="#" style="position: absolute; margin-top: 60px; margin-left: 35px;text-decoration:none;">🔇</a>
+					<a id="muteButton" href="#" style="position: absolute; margin-top: 61px; margin-left: 35px;text-decoration:none;">🔇</a>
 				</div>
 				<div id="menu-buttons-play" style="display: none;">
 						<span class="butHeader">Difficulty</span>
@@ -135,25 +143,25 @@ dampening : 3000
 						<div id="menu-buttons">
 						<a id="song1" href="#" class="myButton">Beatles - Hey Jude</a>
 						<br>
-						<a href="#" class="myButton">Song 2</a>
+						<a id="song2" href="#" class="myButton">Billy Joel - Piano Man</a>
 						<br>
-						<a href="#" class="myButton">Song 3</a>
+						<a id="song3" href="#" class="myButton">Erik Satie - Gymnopédie No.1</a>
 						</div>
 					</div>
 					<div id="menu-buttons-med" style="display: none;">
 							<div id="menu-buttons">
 							<a id="song4" href="#" class="myButton">Star Wars - May the Force be with You</a>
 							<br>
-							<a id="song5" href="#" class="myButton">Erik Satie - Gymnopédie No.1</a>
+							<a id="song5" href="#" class="myButton">Gary Jules - Mad World</a>
 							<br>
-							<a href="#" class="myButton">Song 3</a>
+							<a id="song6" href="#" class="myButton">Skrillex - Scary Monsters & Nice Sprites</a>
 							</div>
 					</div>
 					<div id="menu-buttons-hard" style="display: none;">
 							<div id="menu-buttons">
 							<a id="song7" href="#" class="myButton">Beethoven - For Elise</a>
 							<br>
-							<a id="song8" href="#" class="myButton">Resident Evil Theme</a>
+							<a id="song8" href="#" class="myButton">Harry Potter - Medley</a>
 							<br>
 							<a id="song9" href="#" class="myButton">Chopin - Nocturne op.9 No.2</a>
 							</div>
@@ -190,6 +198,7 @@ dampening : 3000
 
 
 					  <script type="text/javascript">
+					    let firstStart = true;
 						let demoMode = false;
 						let keyDifficulty = true;
 						document.getElementById('playButton').addEventListener('click',hideshow,false);
@@ -198,8 +207,13 @@ dampening : 3000
 						document.getElementById('hard-diff').addEventListener('click',hideshow3,false);
 						document.getElementById('settingsButton').addEventListener('click',hideshow4,false);
 						document.getElementById('song1').addEventListener('click',playsong1,false);
+						document.getElementById('song2').addEventListener('click',playsong2,false);
+						document.getElementById('song3').addEventListener('click',playsong3,false);
+						document.getElementById('song4').addEventListener('click',playsong4,false);
 						document.getElementById('song5').addEventListener('click',playsong5,false);
+						document.getElementById('song6').addEventListener('click',playsong6,false);
 						document.getElementById('song7').addEventListener('click',playsong7,false);
+						document.getElementById('song8').addEventListener('click',playsong8,false);
 						document.getElementById('song9').addEventListener('click',playsong9,false);
 						
 						document.getElementById('keyDifficultyButton').addEventListener('click',changekeydifficulty,false);
@@ -258,23 +272,57 @@ dampening : 3000
 							playThatFunkyMusic(heyJude, 0.0021114843749999996, demoMode)
 						}  
 
-						function playsong5() {
+						function playsong2() {
+							document.getElementById('menu-overlay').style.display = 'none'; 
+							refreshGame()
+							playThatFunkyMusic(pianoMan, 0.0021258489583333333, demoMode)
+						}  
+
+						function playsong3() {
 							document.getElementById('menu-overlay').style.display = 'none'; 
 							refreshGame()
 							playThatFunkyMusic(gymnopede, 0.007575758333333333, demoMode)
 						}  
+
+						function playsong4() {
+							document.getElementById('menu-overlay').style.display = 'none'; 
+							refreshGame()
+							playThatFunkyMusic(starWars, 0.0005808333333333333, demoMode)
+						}  
+
+						function playsong5() {
+							document.getElementById('menu-overlay').style.display = 'none'; 
+							refreshGame()
+							playThatFunkyMusic(madWorld, 0.0066489374999999995, demoMode)
+						}  
+
+						function playsong6() {
+							document.getElementById('menu-overlay').style.display = 'none'; 
+							refreshGame()
+							playThatFunkyMusic(skrillex, 0.0050642812499999995, demoMode)
+						}  
+
 
 						function playsong7() {
 							document.getElementById('menu-overlay').style.display = 'none'; 
 							refreshGame()
 							playThatFunkyMusic(defaultSong, 0.0009928572916666667, demoMode)
 						}  
-					
+
+						
+						function playsong8() {
+							document.getElementById('menu-overlay').style.display = 'none'; 
+							refreshGame()
+							playThatFunkyMusic(harryPotter, 0.001200236328125, demoMode)
+						}  
+
 						function playsong9() {
 							document.getElementById('menu-overlay').style.display = 'none';
 							refreshGame()
 							playThatFunkyMusic(nocturne, 0.015416666666666666, demoMode)
 						}  
+
+					
 						// function playsong5() {
 						// 	document.getElementById('menu-overlay').style.display = 'none';
 						// 	refreshGame()
@@ -306,10 +354,10 @@ dampening : 3000
 							document.getElementById('menu-buttons-settings').style.display = 'block'; 
 						}     
 
-						let firstStart = true;
 						function refreshGame(){
 							scorePassed = 0;
-   						    scoreCorrect = 0;
+							scoreCorrect = 0;
+							progressNotes = 0;
 							firstStart = false;
 							document.getElementById('menu-buttons-settings').style.display = 'none'; 
 							document.getElementById('menu-buttons-hard').style.display = 'none'; 
